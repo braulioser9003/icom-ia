@@ -1,0 +1,36 @@
+intervalo_index:
+    path:     /{intervalo}/
+    defaults: { _controller: "FCOMIcomBundle:intervalo:index" }
+    methods:  [GET, POST]
+
+intervalo_show:
+    path:     /{id}/show
+    defaults: { _controller: "FCOMIcomBundle:intervalo:show" }
+    methods:  GET
+
+intervalo_new:
+    path:     /{salas}/new
+    defaults: { _controller: "FCOMIcomBundle:intervalo:new" }
+    methods:  [GET, POST]
+
+intervalo_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FCOMIcomBundle:intervalo:edit" }
+    methods:  [GET, POST]
+
+intervalo_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FCOMIcomBundle:intervalo:delete" }
+    methods:  DELETE
+intervalo_accion:
+    path:     /{intervalo}/{ponencias}/accion
+    defaults: { _controller: "FCOMIcomBundle:intervalo:accion" }
+    methods:  [GET, POST]
+intervalo_addPonencia:
+    path:     /{ponencia}/accion
+    defaults: { _controller: "FCOMIcomBundle:intervalo:addPonencia" }
+    methods:  [GET, POST]
+intervalo_remover:
+    path:     /{ponencia}/{intervalo}/remover
+    defaults: { _controller: "FCOMIcomBundle:intervalo:remover" }
+    methods:  [GET, POST]

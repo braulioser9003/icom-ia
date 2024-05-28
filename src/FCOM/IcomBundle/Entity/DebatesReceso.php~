@@ -1,0 +1,100 @@
+<?php
+
+namespace FCOM\IcomBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * DebatesReceso
+ *
+ * @ORM\Table(name="debates_receso")
+ * @ORM\Entity(repositoryClass="FCOM\IcomBundle\Repository\DebatesRecesoRepository")
+ */
+class DebatesReceso
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="debates", type="time")
+     */
+    private $debates;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="receso", type="time")
+     */
+    private $receso;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="intervalo", inversedBy="DebatesReceso")
+     * @ORM\JoinColumn(name="intervalo_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $intervalo;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set debates
+     *
+     * @param \DateTime $debates
+     * @return DebatesReceso
+     */
+    public function setDebates($debates)
+    {
+        $this->debates = $debates;
+
+        return $this;
+    }
+
+    /**
+     * Get debates
+     *
+     * @return \DateTime 
+     */
+    public function getDebates()
+    {
+        return $this->debates;
+    }
+
+    /**
+     * Set receso
+     *
+     * @param \DateTime $receso
+     * @return DebatesReceso
+     */
+    public function setReceso($receso)
+    {
+        $this->receso = $receso;
+
+        return $this;
+    }
+
+    /**
+     * Get receso
+     *
+     * @return \DateTime 
+     */
+    public function getReceso()
+    {
+        return $this->receso;
+    }
+}

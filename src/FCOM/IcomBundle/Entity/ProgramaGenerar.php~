@@ -1,0 +1,160 @@
+<?php
+
+namespace FCOM\IcomBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ProgramaGenerar
+ *
+ * @ORM\Table(name="programa_generar")
+ * @ORM\Entity(repositoryClass="FCOM\IcomBundle\Repository\ProgramaGenerarRepository")
+ */
+class ProgramaGenerar
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \string
+     *
+     * @ORM\Column(name="horaInicio", type="string", length=255)
+     */
+    private $horaInicio;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="horaFinal", type="string", length=255)
+     */
+    private $horaFinal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="actividad", type="string", length=255)
+     */
+    private $actividad;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lugar", type="string", length=255)
+     */
+    private $lugar;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Dia", inversedBy="programaGenerar")
+     * @ORM\JoinColumn(name="dia_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $dia;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set horaInicio
+     *
+     * @param string $horaInicio
+     * @return ProgramaGenerar
+     */
+    public function setHoraInicio($horaInicio)
+    {
+        $this->horaInicio = $horaInicio;
+
+        return $this;
+    }
+
+    /**
+     * Get horaInicio
+     *
+     * @return string
+     */
+    public function getHoraInicio()
+    {
+        return $this->horaInicio;
+    }
+
+    /**
+     * Set horaFinal
+     *
+     * @param string $horaFinal
+     * @return ProgramaGenerar
+     */
+    public function setHoraFinal($horaFinal)
+    {
+        $this->horaFinal = $horaFinal;
+
+        return $this;
+    }
+
+    /**
+     * Get horaFinal
+     *
+     * @return string 
+     */
+    public function getHoraFinal()
+    {
+        return $this->horaFinal;
+    }
+
+    /**
+     * Set actividad
+     *
+     * @param string $actividad
+     * @return ProgramaGenerar
+     */
+    public function setActividad($actividad)
+    {
+        $this->actividad = $actividad;
+
+        return $this;
+    }
+
+    /**
+     * Get actividad
+     *
+     * @return string 
+     */
+    public function getActividad()
+    {
+        return $this->actividad;
+    }
+
+    /**
+     * Set lugar
+     *
+     * @param string $lugar
+     * @return ProgramaGenerar
+     */
+    public function setLugar($lugar)
+    {
+        $this->lugar = $lugar;
+
+        return $this;
+    }
+
+    /**
+     * Get lugar
+     *
+     * @return string 
+     */
+    public function getLugar()
+    {
+        return $this->lugar;
+    }
+}

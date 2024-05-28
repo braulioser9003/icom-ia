@@ -1,0 +1,564 @@
+<?php
+
+namespace FCOM\IcomBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\UniqueEntity;
+
+/**
+ * Ponencias
+ *
+ * @ORM\Table(name="ponencias")
+ * @ORM\Entity(repositoryClass="FCOM\IcomBundle\Repository\PonenciasRepository")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class Ponencias
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message="Ingrese el título del resumen de ponencia")
+     * @ORM\Column(name="Titulo", type="string", length=255)
+     */
+    private $titulo;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message="Ingrese el resumen de ponencia")
+     * @Assert\Length(
+     * min = 2,
+     * max = 2000,
+     * minMessage = "La cantida de palabras debe ser mayor que 4",
+     * maxMessage = "La cantidad de palabras no debe sobrepasar los 200 caracteres"
+     * )
+     * @ORM\Column(name="resumen", type="text")
+     */
+    private $resumen;
+
+    /**
+     * @Assert\NotBlank(message="Ingrese las palabras claves")
+     * @ORM\OneToMany(targetEntity="PalabraClave", mappedBy="ponencias", cascade={"persist"})
+     */
+    private $palabraClave;
+
+
+
+    /**
+     * @Assert\NotBlank(message="Ingrese la temática del resumen de ponencia")
+     * @ORM\ManyToOne(targetEntity="Tematica", inversedBy="ponencias")
+     * @ORM\JoinColumn(name="tematica_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $tematica;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Estado", inversedBy="ponencias")
+     * @ORM\JoinColumn(name="estado_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $estado;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Autor", cascade={"persist"})
+     * @ORM\JoinTable(name="autor_ponencias",
+     *      joinColumns={@ORM\JoinColumn(name="ponencias_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="autor_id", referencedColumnName="id", onDelete="CASCADE")}
+     *      )
+     */
+    private $autor;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Usuario", cascade={"persist"})
+     * @ORM\JoinTable(name="usuario_ponencias",
+     *      joinColumns={@ORM\JoinColumn(name="ponencias_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id", onDelete="CASCADE")}
+     *      )
+     */
+    private $usuario;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Document")
+     * @ORM\JoinColumn(name="document_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $document;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="intervalo", inversedBy="ponencias")
+     * @ORM\JoinColumn(name="intervalo_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $intervalo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="horaInicio", type="time")
+     */
+    private $horaInicio;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="horaFinal", type="time")
+     */
+    private $horaFinal;
+
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="actualizado", type="datetime")
+     */
+    private $fechaPublicacion;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="asignado", type="integer")
+     */
+    private $asignado;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message="Ingrese la modalidad del resumen de ponencia")
+     * @ORM\Column(name="modalidad", type="text")
+     */
+    private $modalidad;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="posicion", type="integer")
+     */
+    private $posicion;
+    
+    public function __construct()
+    {
+       $this->palabraClave = new ArrayCollection();
+       $this->autor = new ArrayCollection();
+    }
+    
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set titulo
+     *
+     * @param string $titulo
+     * @return Ponencias
+     */
+    public function setTitulo($titulo)
+    {
+        $this->titulo = $titulo;
+
+        return $this;
+    }
+
+    /**
+     * Get titulo
+     *
+     * @return string 
+     */
+    public function getTitulo()
+    {
+        return $this->titulo;
+    }
+
+    /**
+     * Set resumen
+     *
+     * @param string $resumen
+     * @return Ponencias
+     */
+    public function setResumen($resumen)
+    {
+        $this->resumen = $resumen;
+
+        return $this;
+    }
+
+    /**
+     * Get resumen
+     *
+     * @return string 
+     */
+    public function getResumen()
+    {
+        return $this->resumen;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param \FCOM\IcomBundle\Entity\Estado $estado
+     * @return Ponencias
+     */
+    public function setEstado(\FCOM\IcomBundle\Entity\Estado $estado = null)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return \FCOM\IcomBundle\Entity\Estado 
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    /**
+     * Add autor
+     *
+     * @param \FCOM\IcomBundle\Entity\Autor $autor
+     * @return Ponencias
+     */
+    public function addAutor(\FCOM\IcomBundle\Entity\Autor $autor)
+    {
+        $this->autor[] = $autor;
+
+        return $this;
+    }
+
+    /**
+     * Remove autor
+     *
+     * @param \FCOM\IcomBundle\Entity\Autor $autor
+     */
+    public function removeAutor(\FCOM\IcomBundle\Entity\Autor $autor)
+    {
+        $this->autor->removeElement($autor);
+    }
+
+    /**
+     * Get autor
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAutor()
+    {
+        return $this->autor;
+    }
+
+    public function setAutor(Collection $autor)
+    {
+        $this->autor = $autor;
+
+        return $this;
+    }
+
+
+    public function setPalabraClave(Collection $palabraClave)
+    {
+        $this->palabraClave = $palabraClave;
+
+        return $this;
+    }
+
+    /**
+     * Add palabraClave
+     *
+     * @param \FCOM\IcomBundle\Entity\PalabraClave $palabraClave
+     * @return Ponencias
+     */
+    public function addPalabraClave(\FCOM\IcomBundle\Entity\PalabraClave $palabraClave)
+    {
+        if( ! $this->palabraClave->contains($palabraClave)){
+            $this->palabraClave->add($palabraClave);
+            $palabraClave->setPonencias($this);
+            
+        }
+
+
+        return $this->palabraClave;
+    }
+
+    /**
+     * Remove palabraClave
+     *
+     * @param \FCOM\IcomBundle\Entity\PalabraClave $palabraClave
+     */
+    public function removePalabraClave(\FCOM\IcomBundle\Entity\PalabraClave $palabraClave)
+    {
+        if( ! $this->palabraClave->contains($palabraClave)){
+            $this->palabraClave->removeElement($palabraClave);
+            $palabraClave->setPonencias(null);
+
+        }
+        return $this->palabraClave;
+
+    }
+
+    /**
+     * Get palabraClave
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPalabraClave()
+    {
+        return $this->palabraClave;
+    }
+
+    /**
+     * Set fechaPublicacion
+     * @ORM\PrePersist
+     *
+     * @param \DateTime $fechaPublicacion
+     * @return Ponencias
+     */
+    public function setFechaPublicacion($fechaPublicacion)
+    {
+        $this->fechaPublicacion = new \DateTime();
+
+    }
+
+    /**
+     * Get fechaPublicacion
+     *
+     * @return \DateTime 
+     */
+    public function getFechaPublicacion()
+    {
+        return $this->fechaPublicacion;
+    }
+
+    /**
+     * Set tematica
+     *
+     * @param \FCOM\IcomBundle\Entity\Tematica $tematica
+     * @return Ponencias
+     */
+    public function setTematica(\FCOM\IcomBundle\Entity\Tematica $tematica = null)
+    {
+        $this->tematica = $tematica;
+
+        return $this;
+    }
+
+    /**
+     * Get tematica
+     *
+     * @return \FCOM\IcomBundle\Entity\Tematica 
+     */
+    public function getTematica()
+    {
+        return $this->tematica;
+    }
+
+    /**
+     * Set document
+     *
+     * @param \FCOM\IcomBundle\Entity\Document $document
+     * @return Ponencias
+     */
+    public function setDocument(\FCOM\IcomBundle\Entity\Document $document = null)
+    {
+        $this->document = $document;
+
+        return $this;
+    }
+
+    /**
+     * Get document
+     *
+     * @return \FCOM\IcomBundle\Entity\Document 
+     */
+    public function getDocument()
+    {
+        return $this->document;
+    }
+
+    /**
+     * Set intervalo
+     *
+     *
+     * @param \FCOM\IcomBundle\Entity\intervalo $intervalo
+     * @return Ponencias
+     */
+    public function setIntervalo(\FCOM\IcomBundle\Entity\intervalo $intervalo = null)
+    {
+        $this->intervalo = $intervalo;
+
+        return $this;
+    }
+
+    /**
+     * Get intervalo     *
+     *
+     * @return \FCOM\IcomBundle\Entity\intervalo 
+     */
+    public function getIntervalo()
+    {
+        return $this->intervalo;
+    }
+
+    /**
+     * Set horaInicio
+     * @ORM\PrePersist()
+     *
+     * @param \DateTime $horaInicio
+     * @return Ponencias
+     */
+    public function setHoraInicio($horaInicio)
+    {
+        $this->horaInicio = new \DateTime();
+
+        return $this;
+    }
+
+    /**
+     * Get horaInicio
+     *
+     * @return \DateTime
+     */
+    public function getHoraInicio()
+    {
+        return $this->horaInicio;
+    }
+
+    /**
+     * Set horaFinal
+     * @ORM\PrePersist()
+     *
+     * @param \DateTime $horaFinal
+     * @return Ponencias
+     */
+    public function setHoraFinal($horaFinal)
+    {
+        $this->horaFinal = new \DateTime();
+
+        return $this;
+    }
+
+    /**
+     * Get horaFinal
+     *
+     * @return \DateTime
+     */
+    public function getHoraFinal()
+    {
+        return $this->horaFinal;
+    }
+
+    /**
+     * Set asignado
+     *
+     * @param integer $asignado
+     * @return Ponencias
+     */
+    public function setAsignado($asignado)
+    {
+        $this->asignado = $asignado;
+
+        return $this;
+    }
+
+    /**
+     * Get asignado
+     *
+     * @return integer 
+     */
+    public function getAsignado()
+    {
+        return $this->asignado;
+    }
+
+    /**
+     * Set modalidad
+     *
+     * @param string $modalidad
+     * @return Ponencias
+     */
+    public function setModalidad($modalidad)
+    {
+        $this->modalidad = $modalidad;
+
+        return $this;
+    }
+
+    /**
+     * Get modalidad
+     *
+     * @return string 
+     */
+    public function getModalidad()
+    {
+        return $this->modalidad;
+    }
+
+    /**
+     * Set posicion
+     *
+     * @param integer $posicion
+     * @return Ponencias
+     */
+    public function setPosicion($posicion)
+    {
+        $this->posicion = $posicion;
+
+        return $this;
+    }
+
+    /**
+     * Get posicion
+     *
+     * @return integer 
+     */
+    public function getPosicion()
+    {
+        return $this->posicion;
+    }
+
+    /**
+     * Add usuario
+     *
+     * @param \FCOM\IcomBundle\Entity\Usuario $usuario
+     * @return Ponencias
+     */
+    public function addUsuario(\FCOM\IcomBundle\Entity\Usuario $usuario)
+    {
+        $this->usuario[] = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Remove usuario
+     *
+     * @param \FCOM\IcomBundle\Entity\Usuario $usuario
+     */
+    public function removeUsuario(\FCOM\IcomBundle\Entity\Usuario $usuario)
+    {
+        $this->usuario->removeElement($usuario);
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+}

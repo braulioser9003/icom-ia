@@ -1,0 +1,275 @@
+<?php
+
+namespace FCOM\IcomBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Tematica
+ *
+ * @ORM\Table(name="tematica")
+ * @ORM\Entity(repositoryClass="FCOM\IcomBundle\Repository\TematicaRepository")
+ */
+class Tematica
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tematica", type="string", length=255)
+     */
+    private $tematica;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Ponencias", mappedBy="tematica")
+     */
+    private $ponencias;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="intervalo", cascade={"persist"})
+     * @ORM\JoinTable(name="intervalo_tematica",
+     *      joinColumns={@ORM\JoinColumn(name="tematica_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="intervalo_id", referencedColumnName="id", onDelete="CASCADE")}
+     *      )
+     */
+    private $intervalo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="abreviatura", type="string", length=11)
+     */
+    private $abreviatura;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Eje", inversedBy="tematica")
+     * @ORM\JoinColumn(name="eje_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $eje;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Coordinadores", mappedBy="tematica")
+     */
+    private $coordinadores;
+
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ponencias = new ArrayCollection();
+        $this->intervalo = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set tematica
+     *
+     * @param string $tematica
+     * @return Tematica
+     */
+    public function setTematica($tematica)
+    {
+        $this->tematica = $tematica;
+
+        return $this;
+    }
+
+    /**
+     * Get tematica
+     *
+     * @return string 
+     */
+    public function getTematica()
+    {
+        return $this->tematica;
+    }
+
+    /**
+     * Set cantPonencias
+     *
+     * @param integer $cantPonencias
+     * @return Tematica
+     */
+    public function setCantPonencias($cantPonencias)
+    {
+        $this->cantPonencias = $cantPonencias;
+
+        return $this;
+    }
+
+    /**
+     * Get cantPonencias
+     *
+     * @return integer 
+     */
+    public function getCantPonencias()
+    {
+        return $this->cantPonencias;
+    }
+
+    /**
+     * Add ponencias
+     *
+     * @param \FCOM\IcomBundle\Entity\Ponencias $ponencias
+     * @return Tematica
+     */
+    public function addPonencia(\FCOM\IcomBundle\Entity\Ponencias $ponencias)
+    {
+        $this->ponencias[] = $ponencias;
+
+        return $this;
+    }
+
+    /**
+     * Remove ponencias
+     *
+     * @param \FCOM\IcomBundle\Entity\Ponencias $ponencias
+     */
+    public function removePonencia(\FCOM\IcomBundle\Entity\Ponencias $ponencias)
+    {
+        $this->ponencias->removeElement($ponencias);
+    }
+
+    /**
+     * Get ponencias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPonencias()
+    {
+        return $this->ponencias;
+    }
+
+    /**
+     * Add intervalo
+     *
+     * @param \FCOM\IcomBundle\Entity\intervalo $intervalo
+     * @return Tematica
+     */
+    public function addIntervalo(\FCOM\IcomBundle\Entity\intervalo $intervalo)
+    {
+        $this->intervalo[] = $intervalo;
+
+        return $this;
+    }
+
+    /**
+     * Remove intervalo
+     *
+     * @param \FCOM\IcomBundle\Entity\intervalo $intervalo
+     */
+    public function removeIntervalo(\FCOM\IcomBundle\Entity\intervalo $intervalo)
+    {
+        $this->intervalo->removeElement($intervalo);
+    }
+
+    /**
+     * Get intervalo
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIntervalo()
+    {
+        return $this->intervalo;
+    }
+
+    /**
+     * Set eje
+     *
+     * @param \FCOM\IcomBundle\Entity\Eje $eje
+     * @return Tematica
+     */
+    public function setEje(\FCOM\IcomBundle\Entity\Eje $eje = null)
+    {
+        $this->eje = $eje;
+
+        return $this;
+    }
+
+    /**
+     * Get eje
+     *
+     * @return \FCOM\IcomBundle\Entity\Eje 
+     */
+    public function getEje()
+    {
+        return $this->eje;
+    }
+
+    /**
+     * Set abreviatura
+     *
+     * @param string $abreviatura
+     * @return Tematica
+     */
+    public function setAbreviatura($abreviatura)
+    {
+        $this->abreviatura = $abreviatura;
+
+        return $this;
+    }
+
+    /**
+     * Get abreviatura
+     *
+     * @return string 
+     */
+    public function getAbreviatura()
+    {
+        return $this->abreviatura;
+    }
+
+    /**
+     * Add coordinadores
+     *
+     * @param \FCOM\IcomBundle\Entity\Coordinadores $coordinadores
+     * @return Tematica
+     */
+    public function addCoordinadore(\FCOM\IcomBundle\Entity\Coordinadores $coordinadores)
+    {
+        $this->coordinadores[] = $coordinadores;
+
+        return $this;
+    }
+
+    /**
+     * Remove coordinadores
+     *
+     * @param \FCOM\IcomBundle\Entity\Coordinadores $coordinadores
+     */
+    public function removeCoordinadore(\FCOM\IcomBundle\Entity\Coordinadores $coordinadores)
+    {
+        $this->coordinadores->removeElement($coordinadores);
+    }
+
+    /**
+     * Get coordinadores
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCoordinadores()
+    {
+        return $this->coordinadores;
+    }
+}

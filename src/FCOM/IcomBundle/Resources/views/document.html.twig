@@ -1,0 +1,9 @@
+{% extends 'plantillas/principal.html.twig' %}
+{% block contenido %}
+	{{ parent() }}
+	<h1>Upload File</h1>
+	<form action="{{ path('fcom_icom_document') }}" method="post" enctype="multipart/form-data" >
+		<input type="file" name="file" >
+		<input type="submit" value="Upload Document" />
+	</form>
+{% endblock %}

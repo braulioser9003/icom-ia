@@ -1,0 +1,135 @@
+
+<div class="page-sidebar-wrapper">
+<div class="page-sidebar navbar-collapse collapse">
+<!-- BEGIN SIDEBAR MENU -->
+<!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+<!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+<!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+<!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+<!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+<!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="margin-top:25px;">
+    {% if is_granted('ROLE_ADMIN') or is_granted( 'ROLE_EDITOR') or is_granted( 'ROLE_CODGENERAR') %}
+<li class="tooltips">
+    <a href="{{ path('fcom_icom_index') }}" target="_blank">
+        <i class="icon-home"></i>
+        <span class="title">Inicio</span>
+    </a>
+</li>
+    {% endif %}
+
+<li>
+    {% if is_granted('ROLE_ADMIN') or is_granted( 'ROLE_CODGENERAR') %}
+    <a href="javascript:;">
+        <i class="icon-docs "></i>
+        <span class="title">Ponencias</span>
+        <span class="arrow "></span>
+    </a>
+    <ul class="sub-menu">
+        <li>
+            <a href="{{ path('ponencias_index') }}">
+                <i class="icon-list "></i>
+                Lista de ponencia</a>
+        </li>
+        <li>
+            <a href="{{ path('ponencias_nueva') }}">
+                <i class="icon-arrow-up "></i>
+                Subir Ponencia</a>
+        </li>
+        <li>
+            <a href="{{ path('coordinadores_index') }}">
+                <i class="fa fa-group"></i>
+                Coordinadores</a>
+        </li>
+    </ul>
+</li>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+    <li class="tooltips">
+        <a href="{{ path('usuario_index') }}" target="_blank">
+            <i class="icon-users "></i>
+            <span class="title">Usuarios</span>
+        </a>
+    </li>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') or is_granted( 'ROLE_CODGENERAR') %}
+<li>
+    <a href="javascript:;">
+        <i class="icon-calendar"></i>
+        <span class="title">Programas</span>
+        <span class="arrow "></span>
+    </a>
+    <ul class="sub-menu">
+        <li>
+            <a href="{{ path('programagenerar_new') }}">
+
+                Crear Programa Generar</a>
+
+        </li>
+        <li>
+
+            <a href="{{ path('salas_index') }}">
+
+                Crear Programa Científico</a>
+
+        </li>
+        <li>
+            <a href="javascript:;">
+                <span class="title">Programa Científico</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{{ path('salas_programa_ponencias') }}">
+
+                        Ponencias</a>
+
+                </li>
+                <li>
+                    <a href="{{ path('salas_programa_poster') }}">
+
+                        Poster</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="{{ path('programagenerar_index') }}">
+
+                Programa Generar</a>
+        </li>
+
+    </ul>
+</li>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN', 'ROLE_EDITOR') or is_granted( 'ROLE_EDITOR') %}
+<li>
+    <a href="javascript:;">
+        <i class="fa fa-tag "></i>
+        <span class="title">Noticias</span>
+        <span class="arrow "></span>
+    </a>
+    <ul class="sub-menu">
+        <li>
+            <a href="{{ path('noticias_index') }}">
+                <i class="icon-list "></i>
+
+                Lista de Noticias</a>
+
+        </li>
+        <li>
+
+            <a href="{{ path('noticias_nueva') }}">
+
+                Crear Noticia</a>
+
+        </li>
+
+    </ul>
+</li>
+    {% endif %}
+
+
+</ul>
+<!-- END SIDEBAR MENU -->
+</div>
+</div>

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Sala</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sala.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ sala.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Capacidad</th>
+                <td>{{ sala.capacidad }}</td>
+            </tr>
+            <tr>
+                <th>Horainicio</th>
+                <td>{% if sala.horaInicio %}{{ sala.horaInicio|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Horafinal</th>
+                <td>{% if sala.horaFinal %}{{ sala.horaFinal|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Tipoactividad</th>
+                <td>{{ sala.tipoActividad }}</td>
+            </tr>
+            <tr>
+                <th>Asignado</th>
+                <td>{{ sala.asignado }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('salas_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('salas_editar', { 'id': sala.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

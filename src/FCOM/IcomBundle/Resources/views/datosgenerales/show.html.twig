@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Datosgenerale</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ datosGenerale.id }}</td>
+            </tr>
+            <tr>
+                <th>Titulositio</th>
+                <td>{{ datosGenerale.tituloSitio }}</td>
+            </tr>
+            <tr>
+                <th>Fechainicio</th>
+                <td>{% if datosGenerale.fechaInicio %}{{ datosGenerale.fechaInicio|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Fechafinal</th>
+                <td>{% if datosGenerale.fechaFinal %}{{ datosGenerale.fechaFinal|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Cuentatuitter</th>
+                <td>{{ datosGenerale.cuentaTuitter }}</td>
+            </tr>
+            <tr>
+                <th>Cuentafacebook</th>
+                <td>{{ datosGenerale.cuentaFacebook }}</td>
+            </tr>
+            <tr>
+                <th>Correotcom</th>
+                <td>{{ datosGenerale.correoTcom }}</td>
+            </tr>
+            <tr>
+                <th>Estadoprograma</th>
+                <td>{{ datosGenerale.estadoPrograma }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('datosgenerales_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('datosgenerales_edit', { 'id': datosGenerale.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

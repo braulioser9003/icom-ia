@@ -1,0 +1,25 @@
+noticias_index:
+    path:     /
+    defaults: { _controller: "FCOMIcomBundle:Noticias:index" }
+    methods:  GET
+
+noticias_mostrar:
+    path:     /{id}/mostrar
+    defaults: { _controller: "FCOMIcomBundle:Noticias:mostrar" }
+    methods:  GET
+
+noticias_nueva:
+    path:     /nueva
+    defaults: { _controller: "FCOMIcomBundle:Noticias:nueva" }
+    methods:  [GET, POST]
+
+noticias_editar:
+    path:     /{id}/editar
+    defaults: { _controller: "FCOMIcomBundle:Noticias:editar" }
+    methods:  [GET, POST, DELETE]
+
+noticias_eliminar:
+    path:     /{id}/eliminar
+    defaults: { _controller: "FCOMIcomBundle:Noticias:eliminar" }
+    methods:  [GET, POST]
+

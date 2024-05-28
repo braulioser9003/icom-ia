@@ -1,0 +1,120 @@
+{% extends 'plantillas/Backend/bakendPrincipal.html.twig' %}
+{% block stylepage %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/clockface/css/clockface.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datepicker/css/datepicker3.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}"/>
+    <link href="{{ asset('bundles/fcomicom/metronic/') }}assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/fcomicom/metronic/') }}assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/fcomicom/metronic/') }}assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+
+
+
+{% endblock %}
+{% block pagecontent %}
+    {{ parent() }}
+    {% if validar != "" %}
+        <div class="alert alert-block alert-danger fade in" style="margin:0 0 50px 0;">
+            <a href="{{ path('salas_index') }}" class="close" data-dismiss="alert"></a>
+            <h4 class="alert-heading">Error de Validación!</h4>
+            <p> {{ validar }} </p>
+        </div>
+    {% endif %}
+    {% if respuesta == "Final" %}
+        <div class="alert alert-block alert-success fade in" style="margin:0 0 50px 0;">
+            <a href="{{ path('salas_index') }}" class="close" data-dismiss="alert"></a>
+            <h4 class="alert-heading">Programa Completado!</h4>
+            <p>
+                El programa cientifico se creo correctamente.....
+            </p>
+        </div>
+    {% endif %}
+
+
+<form action="{{ path('intervalo_new', {'salas' : sala}) }}" method="post">
+    <div class="row" style="margin: 0 0 0 10px;">
+        <button class="btn green-haze btn-circle" type="submit"   ><i class="fa fa-check-circle"></i> Crear Intervalo</button>
+    </div>
+    <hr>
+    {{ intervaloNuevo.id }}
+    <table class="table table-striped table-bordered table-hover" id="sample_1">
+    <thead>
+    <tr>
+        <th class="table-checkbox">
+        </th>
+        <th>
+            Titulo
+
+        </th>
+        <th>
+            Modalidad
+        </th>
+        <th>
+            Tematica
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for ponencia in ponencias %}
+        {% if ponencia.intervalo == null %}
+            {% if ponencia.estado.estado == "Ponencia aceptada" %}
+            <tr class="odd gradeX">
+                <td class="table-checkbox">
+                    <input type="checkbox" name="agregar{{ ponencia.id }}" value="{{ ponencia.id }}">
+                </td>
+                <td>
+                    {{ ponencia.titulo }}
+                </td>
+                <td>
+                    {{ ponencia.modalidad }}
+                </td>
+                <td>
+                    {{ ponencia.tematica.abreviatura }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if ponencia.intervalo != null %}
+            {% if ponencia.intervalo.posicion == 0 %}
+                <tr class="odd gradeX">
+                    <td class="table-checkbox">
+                        <input type="checkbox" name="agregar{{ ponencia.id }}" value="{{ ponencia.id }}">
+                    </td>
+                    <td>
+                        {{ ponencia.titulo }}
+                    </td>
+                    <td>
+                        {{ ponencia.modalidad }}
+                    </td>
+                    <td>
+                        {{ ponencia.tematica.abreviatura }}
+                    </td>
+                </tr>
+            {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    </tbody>
+    </table>
+</form>
+
+
+
+
+{% endblock %}
+{% block scriptpage %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/clockface/js/clockface.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/fuelux/js/spinner.min.js') }}"></script>
+
+
+
+{% endblock %}

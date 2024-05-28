@@ -1,0 +1,445 @@
+{% extends 'plantillas/Backend/bakendPrincipal.html.twig' %}
+{% block contentTitle %}
+    Programa Científico de las Ponencias
+
+{% endblock %}
+{% block pagecontent %}
+    {{ parent() }}
+    {% if (respuesta != "") %}
+        {% if (respuesta != "Final") %}
+            {% if (respuesta != "IniciarSMA") %}
+                <div class="alert alert-block alert-danger fade in" style="margin:0 0 50px 0;">
+                    <button class="close" type="button" data-dismiss="alert"></button>
+                    <h4 class="alert-heading">Error!</h4>
+                    <p> {{ respuesta }} </p>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    {% if respuesta == "Final" %}
+        <div class="alert alert-block alert-success fade in" style="margin:0 0 50px 0;">
+            <button type="button" class="close" data-dismiss="alert"></button>
+            <h4 class="alert-heading">Programa Completado!</h4>
+
+            <p>
+                El programa cientifico se creo correctamente.....
+            </p>
+        </div>
+    {% endif %}
+    {% if respuesta == "IniciarSMA" %}
+        <div class="alert alert-block alert-danger fade in" style="margin:0 0 50px 0;">
+            <button class="close" type="button" data-dismiss="alert"></button>
+            <h4 class="alert-heading">Error!</h4>
+
+            <p> El sistema para generar el programa del evento no esta ejecutándose </p>
+        </div>
+    {% endif %}
+    {% for flash_message in app.session.flashBag.get('validacion') %}
+        <div class="alert alert-danger">
+            <strong>Error!</strong> {{ flash_message }}
+        </div>
+
+    {% endfor %}
+
+    <div class="row">
+        <div style="float: right;">
+            <div class="clearfix">
+
+                <a class="btn btn-circle btn-default" data-target="#large" data-toggle="modal">
+                    <i class="fa fa-plus"></i> Add Ponencia </a>
+
+                <!-- <button type="button" class="btn btn-success">Success</button>
+
+                <button type="button" class="btn btn-info">Info</button>
+
+                <button type="button" class="btn btn-warning">Warning</button>
+
+                <button type="button" class="btn btn-danger">Danger</button>
+
+                <button type="button" class="btn btn-link">Link</button>-->
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="modal fade bs-modal-lg" id="large" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Listado de ponencias por organizar</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped table-bordered table-hover" id="sample_1">
+                        <thead>
+                        <tr>
+                            <th style="color: #000000;">
+                                 Titulo
+                            </th>
+                            <th>
+                                Modalidad
+                            </th>
+                            <th>
+                                Tematica
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for ponencia in ponencias %}
+                            {% if ponencia.intervalo == null %}
+                                <tr class="odd gradeX">
+                                    <td>
+                                        {{ ponencia.titulo }}
+                                    </td>
+                                    <td>
+                                        {{ ponencia.modalidad }}
+                                    </td>
+                                    <td>
+                                        {{ ponencia.tematica.abreviatura }}
+                                    </td>
+                                    <td width="50px">
+                                        <a href="{{ path('intervalo_addPonencia', {'ponencia': ponencia.id}) }}" class="btn btn-circle btn-default"  >
+                                            <i class="icon-check"></i>  </a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if ponencia.intervalo != null %}
+                                {% if ponencia.intervalo.posicion == 0 %}
+                                    <tr class="odd gradeX">
+                                        <td>
+                                            {{ ponencia.titulo }}
+                                        </td>
+                                        <td>
+                                            {{ ponencia.modalidad }}
+                                        </td>
+                                        <td>
+                                            {{ ponencia.tematica.abreviatura }}
+                                        </td>
+                                        <td width="50px">
+                                            <a href="{{ path('intervalo_addPonencia', {'ponencia': ponencia.id}) }}" class="btn btn-circle btn-default"  >
+                                                <i class="icon-check"></i>  </a>
+
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+{% for salas in sala %}
+    <div id="myModal2{{ salas.id }}" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    Seleccione la temática del Intervalo
+
+
+                </div>
+                <form action="{{ path('intervalo_new', { 'salas': salas.id}) }}" method="post"
+                      id="estado">
+                <div class="modal-body">
+                    <select class="form-control " data-placeholder="Temática" name="tematica">
+                        <option value=""></option>
+                        {% for tematica in tematicas %}
+
+                            <option value="{{ tematica.id }}" name="tematica">{{ tematica.tematica }}</option>
+
+                        {% endfor %}
+                    </select>
+
+                </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>SI</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div id="myModal3{{ salas.id }}" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Esta seguro que desea eliminar la sala: <b class="text-primary"> {{ salas.nombre }} </b></h4>
+
+                </div>
+                <form action="{{ path('salas_eliminar', { 'id': salas.id}) }}" method="post"
+                      id="estado">
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>SI</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+    <form action="{{ path('salas_index') }}" class="form-horizontal" id="submit_form" method="POST">
+    <!--<div class="row">
+        <div style="float: right;">
+            <div class="clearfix">
+                <button type="submit" class="btn btn-default">Default</button>
+
+                <a href="http://localhost:8080/AgenteGateway/ServletGateWay?accion=IniciarSMA" class="btn btn-primary">Actualizar
+                    Programa</a>
+
+                <button type="button" class="btn btn-success">Success</button>
+
+                <button type="button" class="btn btn-info">Info</button>
+
+                <button type="button" class="btn btn-warning">Warning</button>
+
+                <button type="button" class="btn btn-danger">Danger</button>
+
+                <button type="button" class="btn btn-link">Link</button>
+            </div>
+        </div>
+    </div>-->
+    <hr>
+    <div class="portlet-title" id="form_wizard_1" style="margin: 40px 0 0 0;">
+
+    <div class="portlet-body form">
+
+    <div class="form-wizard">
+    <div class="form-body">
+    <ul class="nav nav-pills nav-justified steps">
+        {% for dias in dia %}
+            <li>
+                <a href="#tab{{ dias.id }}" data-toggle="tab" class="step">
+
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="tab-content">
+        {% for dias in dia %}
+
+            <div class="tab-pane active" id="tab{{ dias.id }}">
+                <div class="">
+                    <div class="row">
+                        <div class="col-md-offset-5 col-md-2">
+                            <div class="profile-sidebar">
+                                <!-- PORTLET MAIN -->
+                                <div class="portlet light profile-sidebar-portlet" style="margin: -76px  0 0 0;">
+
+                                    <!-- SIDEBAR USERPIC -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- BEGIN Portlet PORTLET-->
+
+                                            <i class="icon-calendar" style="font-size: 60px;"></i>
+
+                                            <div>
+                                                <strong>
+                                                    <h1 style="float: left; position: absolute; margin: 0 0 0 -21px">{{ dias.dia|date('d') }}</h1>
+                                                </strong>
+                                                <strong><h1 style="padding: 0 0 0 22px;"> {{ dias.dia|date('M') }}</h1>
+                                                </strong>
+                                            </div>
+
+                                            <!-- END Portlet PORTLET-->
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-10" style="margin: -46px 0 0 -75px;">
+                                            <button class="btn btn-circle btn-icon-only btn-default button-previous"
+                                                    type="button" style="margin: 0 0 0 0; position: absolute;"><i
+                                                        class="fa fa-angle-left" style="font-size: 24px;"></i></button>
+                                            <button class="btn btn-circle btn-icon-only btn-default button-next"
+                                                    type="button" style="margin: -2px 0 0 179px;"><i
+                                                        class="fa fa-angle-right" style="font-size: 24px;"></i></button>
+                                        </div>
+                                    </div>
+                                    <!-- END SIDEBAR USERPIC -->
+
+                                    <!-- SIDEBAR BUTTONS -->
+                                    <div class="profile-userbuttons">
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                {% for salas in sala %}
+                    {% if salas.tipoActividad == 'Trabajo en Comisiones' %}
+                        {% if dias.id == salas.dia.id %}
+
+
+                                <div class="portlet light bordered">
+                                    <div class="portlet-title">
+                                        <div class="caption font-green-sharp">
+
+                                            <span class="caption-subject bold font-blue-hoki uppercase"> {{ salas.nombre }}</span>
+                                        </div>
+
+                                        <div class="actions">
+                                            <h4>Límite de Ponencia a Actualizar: {{ salas.cantidadActPonencias }}</h4>
+                                            <a href="#myModal3{{ salas.id }}" role="button" class="btn btn-circle btn-default" data-toggle="modal">
+                                                <i class="fa fa-trash-o"></i> Eliminar</a>
+                                            <a href="{{ path('salas_actualizar', {'salas' : salas.id}) }}"
+                                               class="btn btn-circle btn-default">
+                                                <i class="fa fa-plus"></i> Actualizar </a>
+                                            <a href="#myModal2{{ salas.id }}" role="button" class="btn btn-circle btn-default" data-toggle="modal">
+                                                <i class="fa fa-plus"></i> Add Intervalos</a>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="portlet-body">
+
+                                        <div class="scroller" data-rail-visible="1" data-rail-color="yellow"
+                                             data-handle-color="#a1b2bd">
+
+                                            <div class="col-lg-12 col-md-3 col-sm-6 col-xs-12">
+                                                <div class="dashboard-stat2">
+                                                    <div class="progress-info">
+                                                        {% for intervalos in salas.intervalo %}
+                                                            <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12"
+                                                                 style="margin: 0  -9px 10px -15px; width: {{ intervalos.porciento }}%">
+
+                                                                <div class="dashboard-stat blue-madison">
+                                                                    <div class="visual">
+                                                                        <i class="icon-clock "></i>
+                                                                    </div>
+                                                                    <div class="details">
+                                                                        <div class="desc" style="margin: 22% 0 -25% 0;">
+                                                                            Eje Temático
+                                                                        </div>
+                                                                        <div class="number"><a href="{{ path('intervalo_index', {'intervalo' : intervalos.id, 'salas' : salas.id}) }}" >
+                                                                                {% for tematica in tematicas %}
+                                                                                    {% for inter in tematica.intervalo %}
+                                                                                        {% if inter.id == intervalos.id %}
+                                                                                            {{ tematica.abreviatura }}
+                                                                                        {% endif %}
+                                                                                    {% endfor %}
+                                                                                {% endfor %}
+                                                                            </a></div>
+                                                                    </div>
+
+                                                                    <div class="more">
+                                                                        <b>{{ intervalos.cantPonencias }} Ponencias</b>
+                                                                         <span class="" style="float: right;">
+
+
+                                                                            <a href="{{ path('salas_eliminarIntervalo', { 'intervalo': intervalos.id, 'salas' : salas.id}) }}"><b><i
+                                                                                            class="fa fa-trash-o"></i>
+                                                                                </b> </a>
+
+                                                                        </span>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="status-title" style="float: left;">
+                                                                    {% if intervalos.horaInicio | date('H') > 12 %}
+                                                                        {{ intervalos.horaInicio | date('h:i') }} pm
+
+                                                                    {% elseif salas.horaInicio | date('H') < 12 %}
+                                                                        {{ intervalos.horaInicio | date('h:i') }} am
+
+                                                                    {% endif %}
+                                                                </div>
+                                                                <div class="status-number" style="float: right;">
+                                                                    {% if intervalos.horaFinal | date('H') > 12 %}
+                                                                        {{ intervalos.horaFinal | date('h:i') }} pm
+
+                                                                    {% elseif intervalos.horaFinal | date('H') < 12 %}
+                                                                        {{ intervalos.horaFinal | date('h:i') }} am
+
+                                                                    {% endif %}
+                                                                </div>
+
+                                                            </div>
+                                                        {% endfor %}
+                                                        <div class="progress">
+
+                                                        </div>
+                                                        <div class="status">
+                                                            <div class="status-title">
+                                                                {% if salas.horaInicio | date('H') > 12 %}
+                                                                    {{ salas.horaInicio | date('h:i') }} pm
+
+                                                                {% elseif salas.horaInicio | date('H') < 12 %}
+                                                                    {{ salas.horaInicio | date('h:i') }} am
+
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="status-number">
+                                                                {% if salas.horaFinal | date('H') > 12 %}
+                                                                    {{ salas.horaFinal | date('h:i') }} pm
+
+                                                                {% elseif salas.horaFinal | date('H') < 12 %}
+                                                                    {{ salas.horaFinal | date('h:i') }} am
+
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                        {% endif %}
+
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+
+        {% endfor %}
+    </div>
+    </div>
+
+    </div>
+    </form>
+    </div>
+    </div>
+
+
+
+
+
+{% endblock %}

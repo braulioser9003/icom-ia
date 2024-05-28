@@ -1,0 +1,163 @@
+{% extends 'plantillas/Backend/bakendPrincipal.html.twig' %}
+{% block contentTitle %}
+    Datos Generales
+
+{% endblock %}
+{% block pagecontent %}
+    {{ parent() }}
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Google Map -->
+            <div class="row">
+                <div id="map" class="gmaps margin-bottom-40" style="height:400px;">
+                </div>
+            </div>
+            <div class="row margin-bottom-20">
+                <div class="col-md-6">
+                    <div class="space20">
+                    </div>
+                    <h3 class="form-section">Contacts</h3>
+                    <p>
+
+                    </p>
+                    <div class="well">
+                        <h4>Address</h4>
+                        <address>
+                            <strong>Loop, Inc.</strong><br>
+                            795 Park Ave, Suite 120<br>
+                            San Francisco, CA 94107<br>
+                            <abbr title="Phone">P:</abbr> (234) 145-1810 </address>
+                        <address>
+                            <strong>Email</strong><br>
+                            <a href="mailto:#">
+                                first.last@email.com </a>
+                        </address>
+                        <ul class="social-icons margin-bottom-10">
+                            <li>
+                                <a href="#" data-original-title="facebook" class="facebook">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-original-title="github" class="github">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-original-title="Goole Plus" class="googleplus">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-original-title="linkedin" class="linkedin">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-original-title="rss" class="rss">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-original-title="skype" class="skype">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-original-title="twitter" class="twitter">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-original-title="youtube" class="youtube">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="space20">
+                    </div>
+                    <!-- BEGIN FORM-->
+
+                    {{ form_start(form, {'attr' : {'enctype' : 'multipart/form-data','novalidate': 'novalidate', 'role' : 'form', 'class' : 'form-horizontal' }}
+                    ) }}
+                        <h3 class="form-section">Información Generar</h3>
+
+                        <div class="form-group ">
+                            <label for="firstname" class="col-lg-4 control-label">Titulo del Evento: <span class="require">*</span></label>
+                            <div class="col-lg-8 has-error" >
+                                {{ form_widget(form.tituloSitio, {'attr' : {'class' : 'form-control', 'id' : 'tituloSitio', 'name' : 'tituloSitio' }}
+                                ) }}
+                                <span  class="help-block">{{ form_errors(form.tituloSitio) }} .</span>
+                            </div>
+
+                        </div>
+                        <div class="form-group ">
+                            <label for="firstname" class="col-lg-4 control-label">Fecha Inicio: <span class="require">*</span></label>
+                            <div class="col-lg-8 has-error" >
+                                {{ form_widget(form.fechaInicio, {'attr' : {'class' : 'form-control', 'id' : 'fechaInicio', 'name' : 'fechaInicio' }}
+                                ) }}
+                                <span  class="help-block">{{ form_errors(form.fechaInicio) }} .</span>
+                            </div>
+
+                        </div>
+                        <div class="form-group ">
+                            <label for="firstname" class="col-lg-4 control-label">Fecha Final: <span class="require">*</span></label>
+                            <div class="col-lg-8 has-error" >
+                                {{ form_widget(form.fechaFinal, {'attr' : {'class' : 'form-control', 'id' : 'fechaFinal', 'name' : 'fechaFinal' }}
+                                ) }}
+                                <span  class="help-block">{{ form_errors(form.fechaFinal) }} .</span>
+                            </div>
+
+                        </div>
+                        <div class="form-group ">
+                            <label for="firstname" class="col-lg-4 control-label">Cuenta Twitter: <span class="require">*</span></label>
+                            <div class="col-lg-8 has-error" >
+                                {{ form_widget(form.cuentaTuitter, {'attr' : {'class' : 'form-control', 'id' : 'cuentaTuitter', 'name' : 'cuentaTuitter' }}
+                                ) }}
+                                <span  class="help-block">{{ form_errors(form.cuentaTuitter) }} .</span>
+                            </div>
+
+                        </div>
+                        <div class="form-group ">
+                            <label for="firstname" class="col-lg-4 control-label">Cuenta Facebook: <span class="require">*</span></label>
+                            <div class="col-lg-8 has-error" >
+                                {{ form_widget(form.cuentaFacebook, {'attr' : {'class' : 'form-control', 'id' : 'cuentaFacebook', 'name' : 'cuentaFacebook' }}
+                                ) }}
+                                <span  class="help-block">{{ form_errors(form.cuentaFacebook) }} .</span>
+                            </div>
+
+                        </div>
+                        <div class="form-group ">
+                            <label for="firstname" class="col-lg-4 control-label">Correo ICOM: <span class="require">*</span></label>
+                            <div class="col-lg-8 has-error" >
+                                {{ form_widget(form.correoTcom, {'attr' : {'class' : 'form-control', 'id' : 'correoTcom', 'name' : 'correoTcom' }}
+                                ) }}
+                                <span  class="help-block">{{ form_errors(form.correoTcom) }} .</span>
+                            </div>
+
+                        </div>
+                        <div class="form-group hide">
+                            <label for="firstname" class="col-lg-4 control-label"> <span class="require">*</span></label>
+                            <div class="col-lg-8 has-error" >
+                                {{ form_widget(form.estadoPrograma, {'attr' : {'class' : 'form-control', 'id' : 'estadoPrograma', 'name' : 'estadoPrograma' }}
+                                ) }}
+                                <span  class="help-block">{{ form_errors(form.estadoPrograma) }} .</span>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                        <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
+                            <input type="hidden" name="estadoPrograma" value="0">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="button" class="btn btn-default">Cancelar</button>
+                        </div>
+                        </div>
+                    {{ form_end(form) }}
+                    <!-- END FORM-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

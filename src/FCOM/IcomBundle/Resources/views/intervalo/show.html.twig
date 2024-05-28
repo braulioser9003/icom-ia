@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Intervalo</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ intervalo.id }}</td>
+            </tr>
+            <tr>
+                <th>Cantponencias</th>
+                <td>{{ intervalo.cantPonencias }}</td>
+            </tr>
+            <tr>
+                <th>Posicion</th>
+                <td>{{ intervalo.posicion }}</td>
+            </tr>
+            <tr>
+                <th>Horainicio</th>
+                <td>{% if intervalo.horaInicio %}{{ intervalo.horaInicio|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Horafinal</th>
+                <td>{% if intervalo.horaFinal %}{{ intervalo.horaFinal|date('H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('intervalo_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('intervalo_edit', { 'id': intervalo.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

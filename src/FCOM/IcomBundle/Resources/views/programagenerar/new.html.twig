@@ -1,0 +1,373 @@
+{% extends 'plantillas/Backend/bakendPrincipal.html.twig' %}
+{% block stylepage %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/clockface/css/clockface.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datepicker/css/datepicker3.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}"/>
+    <link href="{{ asset('bundles/fcomicom/metronic/') }}assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/fcomicom/metronic/') }}assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/fcomicom/metronic/') }}assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+
+
+
+{% endblock %}
+{% block pagecontent %}
+    {{ parent() }}
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Begin: life time stats -->
+            <div class="portlet">
+                <div class="portlet-title">
+                    <div class="caption">
+
+                    </div>
+
+                </div>
+                {{  form_start(form, {'attr' : {'enctype' : 'multipart/form-data', 'role' : 'form', 'class' : 'form-horizontal', 'novalidate' : 'novalidate'}}) }}
+                <div class="form-body">
+                    <h3 class="form-section">Nueva Actividad</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Hora Inicio</label>
+                                <div class="col-md-7">
+                                    <div class="input-group">
+                                    {{ form_widget(form.horaInicio, {'attr' : {'class' : 'form-control timepicker timepicker-no-seconds', 'id' : 'horaInicio', 'name' : 'horaInicio' }}
+                                    ) }}
+                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
+                                                        </span>
+
+                                    <span class="text-danger" style="float: left;">{{ form_errors(form.horaInicio) }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Hora Final</label>
+                                <div class="col-md-7">
+                                        <div class="input-group">
+                                            {{ form_widget(form.horaFinal, {'attr' : {'class' : 'form-control timepicker timepicker-no-seconds', 'id' : 'horaFinal', 'name' : 'horaFinal' }}
+                                            ) }}
+                                            <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
+                                                        </span>
+
+                                            <span class="text-danger" style="float: left;">{{ form_errors(form.horaFinal) }}</span>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label class="control-label col-md-3">Actividad</label>
+                                <div class="col-md-7">
+
+                                    {{ form_widget(form.actividad, {'attr' : {'class' : 'form-control', 'id' : 'actividad', 'name' : 'actividad' }}
+                                    ) }}
+
+                                    <span class="text-danger" style="float: left;">{{ form_errors(form.actividad) }}</span>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label class="control-label col-md-3">Lugar</label>
+                                <div class="col-md-7">
+
+                                    {{ form_widget(form.lugar, {'attr' : {'class' : 'form-control', 'id' : 'lugar', 'name' : 'lugar' }}
+                                    ) }}
+
+                                    <span class="text-danger" style="float: left;">{{ form_errors(form.lugar) }}</span>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label class="control-label col-md-3">Dia</label>
+                                <div class="col-md-7">
+
+                                    {{ form_widget(form.dia, {'attr' : {'class' : 'form-control', 'id' : 'dia', 'name' : 'dia', 'placeholder' : 'seleccionar' }}
+                                    ) }}
+
+                                    <span class="text-danger" style="float: left;">{{ form_errors(form.dia) }}</span>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+
+                </div>
+
+                <!--/row-->
+            </div>
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <input type="hidden" name="duracion" value="1">
+                                <input type="hidden" name="asignacion" value="0">
+
+                                {{ form_widget(form.save, {'label' : 'Guardar', 'attr' : {'class' : 'btn green' }}) }}
+                                <button type="button" class="btn default">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+            <hr>
+                <div class="portlet-body">
+                    <div class="tabbable">
+                        <ul class="nav nav-tabs nav-tabs-lg">
+                            {% for dia in dias %}
+                                <li {% if loop.index == 1 %}class="active"{% endif %}>
+                                    <a href="#tab_{{ loop.index }}" data-toggle="tab">
+                                        {{ dia.dia|date('d') }} {{ dia.dia|date('M') }} </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="tab-content">
+                            {% for dia in dias %}
+
+                                <div class="tab-pane {% if loop.index == 1 %}active {% endif %}" id="tab_{{ loop.index }}">
+                                    <div class="note note-success">
+                                        <h4 class="block">Trabajos en comisiones del día {{ dia.dia }}</h4>
+                                        <p>
+                                            {% for sala in salas %}
+                                                {% if sala.tipoActividad == 'Trabajo en Comisiones' %}
+                                            {% if sala.dia != null %}
+                                                   {% if sala.dia.id == dia.id %}
+                                                        {% if sala.intervalo|length != 0 %}
+                                                            <div class="row" style="margin: 0 0 5px 15px;">
+                                                                <b>{{ sala.nombre }}</b> {{ sala.horaInicio |date('h:i') }}  -  {{ sala.horaFinal |date('h:i') }}
+                                                            </div>
+                                                     {% endif %}
+
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                        </p>
+                                    </div>
+                                    <div class="portlet light bordered">
+
+                                        <div class="portlet-body form">
+                                            <!-- BEGIN FORM-->
+
+                                                <div class="form-body">
+                                                    <div class="row">
+                                                        <div class="col-md-1" >
+                                                            <h3 ></h3>
+                                                        </div>
+                                                        <div class="col-md-4" style="text-align: center;">
+                                                            <h3 >HORA</h3>
+                                                        </div>
+                                                        <div class="col-md-4" style="text-align: center;">
+                                                            <h3 >ACTIVIDAD</h3>
+                                                        </div>
+                                                        <div class="col-md-3" style="text-align: center;">
+                                                            <h3 >LUGAR</h3>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    {% for programa in programaGenerar %}
+                                                    {% if dia.id == programa.dia.id %}
+                                                    <div class="row">
+                                                        <div class="col-md-1" style="text-align: center;">
+                                                            <div class="form-group">
+                                                                <div class="col-md-6">
+
+                                                                        <a href="{{ path('programagenerar_delete', {'id': programa.id}) }}" role="button" class="btn btn-circle default" data-toggle="modal">
+                                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i> </a>
+
+
+                                                                </div>
+                                                                <div class="col-md-6">
+
+
+                                                                    <a href="#myModal1{{ programa.id }}" role="button" class="btn btn-circle  green" data-toggle="modal">
+                                                                        <i class="ace-icon fa fa-pencil bigger-120"></i> </a>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-md-4" style="text-align: center;">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <p class="lead">
+
+                                                                        {{ programa.horaInicio }}  -  {{ programa.horaFinal  }}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--/span-->
+                                                        <div class="col-md-4" style="text-align: center;">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <p class="lead">
+                                                                        {{ programa.actividad }}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3" style="text-align: center;">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <p class="lead">
+                                                                        {{ programa.lugar }}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <hr>
+                                                    <div id="myModal1{{ programa.id }}" class="modal fade" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                    <h4 class="modal-title">Actualizar Salas</h4>
+                                                                </div>
+                                                                <form action="{{ path('programagenerar_edit', { 'id': programa.id}) }}" method="post" class="form-horizontal form-row-seperated" novalidate="novalidate">
+                                                                    <div class="modal-body form">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 control-label">Hora de Inicio:</label>
+                                                                            <div class="col-sm-4">
+                                                                                <div class="input-group">
+                                                                                    <input type="text" name="horaInicio" class="form-control timepicker timepicker-no-seconds" id="horaInicio" value="{{ programa.horaInicio}}" >
+                                                                                                                 <span class="input-group-btn">
+                                                                                    <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 control-label">Hora Final:</label>
+                                                                            <div class="col-sm-4">
+                                                                                <div class="input-group">
+
+                                                                                    <input type="text" name="horaFinal" class="form-control timepicker timepicker-no-seconds" id="horaFinal" value="{{ programa.horaFinal}}" >
+                                                                                                                <span class="input-group-btn">
+                                                                                    <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="form-group" >
+                                                                            <label class="col-sm-4 control-label">Actividad:</label>
+                                                                            <div class="col-sm-4">
+                                                                                <div class="input-group">
+                                                                                    <textarea name="actividad" class="form-control" id="actividad">{{ programa.actividad}}</textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="form-group" >
+                                                                            <label class="col-sm-4 control-label">Lugar:</label>
+                                                                            <div class="col-sm-4">
+                                                                                <div class="input-group">
+                                                                                    <input type="text" name="lugar" class="form-control" id="lugar" value="{{ programa.lugar}}" >
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="form-group" >
+                                                                            <label class="col-sm-4 control-label">Tiempo Intercambio:</label>
+                                                                            <div class="col-sm-4">
+                                                                                <div class="input-group">
+                                                                                    <select class="form-control" name="dia">
+                                                                                        <option value="{{ programa.dia.id}}">{{ programa.dia.dia}}</option>
+                                                                                        {% for dia in dias %}
+                                                                                            <option value="{{ dia.id }}" name="dia">{{ dia.dia }}</option>
+                                                                                        {% endfor %}
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="modal-footer">
+
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                        <button type="submit" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-120"></i> Guardar</button>
+
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+
+                                                    {% endfor %}
+
+
+                                                    <!--/row-->
+
+                                                    <!--/row-->
+
+                                                </div>
+
+                                            <!-- END FORM-->
+                                        </div>
+                                    </div>
+
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End: life time stats -->
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}
+{% block scriptpage %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/clockface/js/clockface.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/fuelux/js/spinner.min.js') }}"></script>
+
+
+
+{% endblock %}

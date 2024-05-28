@@ -1,0 +1,13 @@
+fcom_icom_usuario:
+    resource: "@FCOMIcomBundle/Controller/UsuarioController.php"
+    type:     annotation
+
+fcom_icom:
+    resource: "@FCOMIcomBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+

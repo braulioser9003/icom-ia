@@ -1,0 +1,422 @@
+{% extends 'plantillas/Backend/bakendPrincipal.html.twig' %}
+{% block stylepage %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-select/bootstrap-select.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/select2/select2.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/jquery-multi-select/css/multi-select.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/clockface/css/clockface.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datepicker/css/datepicker3.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}"/>
+{% endblock %}
+{% block contentTitle %}
+    Listado Ponencias
+{% endblock %}
+{% block pagecontent %}
+    {{ parent() }}
+    {{ include('plantillas/tabla.html.twig') }}
+
+
+
+            <!-- <div class="table-toolbar">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="btn-group">
+                            <button id="sample_editable_1_new" class="btn green">
+                                Adicionar <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet light bordered">
+                <div class="portlet-body form">
+                    <!-- BEGIN FORM-->
+    <hr>
+    <form action="{{ path('ponencias_filtrar') }}" method="post" class="form-horizontal form-row-seperated">
+        <div class="form-body">
+            <div class="form-group">
+                <div class="col-md-2">
+                    <div class="input-inline input-medium">
+                        <div class="input-group">
+                                                <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                                </span>
+                            <input type="text" class="form-control" placeholder="Titulo Ponencia" name="titulo">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control input-lg select2me" data-placeholder="Temática" name="tematica">
+                        <option value=""></option>
+                        {% for tematica in tematicas %}
+
+                        <option value="{{ tematica.id }}" name="tematica">{{ tematica.tematica }}</option>
+
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn green-haze">
+                        Filtrar &nbsp; <i class="m-icon-swapright m-icon-white"></i>
+                    </button>
+                    </span>
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+    <hr>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div id="dynamic-table_length" class="dataTables_length">
+                        <label>
+                            Display records
+                            <br>
+
+                            <form action="{{ path('ponencias_index') }}">
+                                <select style="margin: 3px 5px 0 0; float: left;" name="records"
+                                        class="form-control input-sm" name="dynamic-table_length"
+                                        aria-controls="dynamic-table">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <button type="submit" class="btn btn-xs btn-info">
+                                    <i class="ace-icon fa fa-check bigger-120"></i>
+                                </button>
+                            </form>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <table id="simple-table" class="table  table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th class="center">
+                        <label class="pos-rel">
+                            <input type="checkbox" class="ace"/>
+                            <span class="lbl"></span>
+                        </label>
+                    </th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Título', 'p.titulo' ) }}</th>
+                    <th class="detail-col">Resumen</th>
+                    <th>Documento General</th>
+                    <th class="hidden-480"> Estado del envío</th>
+
+                    <th>
+                        Autor(es)
+                    </th>
+
+
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+
+                {% for ponencia in pagination %}
+                    <tr>
+                        <td class="center">
+                            <label class="pos-rel">
+                                <input type="checkbox" class="ace"/>
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+
+                        <td width="40%">
+                            <a href="{{ path('ponencias_estado', { 'id': ponencia.id}) }}">{{ ponencia.titulo }}</a>
+                        </td>
+
+                        <td class="center">
+                            <div class="action-buttons">
+                                <a href="#" class="green bigger-140 show-details-btn" title="Show Details">
+                                    <i class="ace-icon fa fa-angle-double-down"></i>
+                                    <span class="sr-only">Details</span>
+                                </a>
+                            </div>
+
+                        </td>
+                        <td></td>
+                        <td width="25%">
+                            {{ ponencia.estado.estado }}
+
+
+                            <form action="{{ path('ponencias_cambiarEstado', { 'id': ponencia.id}) }}" method="post"
+                                  id="estado">
+                                <select name="estado">
+                                    {% for estado in estados %}
+                                        <option name="estado" value="{{ estado.id }}">{{ estado.estado }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-xs btn-success">
+                                    <i class="ace-icon fa fa-check bigger-120"></i>
+                                </button>
+
+                            </form>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+
+                                <a href="#large{{ ponencia.id }}" role="button" data-toggle="modal">
+                                    <i class="ace-icon glyphicon glyphicon-user" data-icon-show="fa-plus" data-icon-hide="fa-minus" style="font-size: 25px; color: #49586A; margin: 10px 5px -13px  15px;"></i> </a>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="hidden-sm hidden-xs btn-group">
+
+
+                                <form action="{{ path('ponencias_editar', {'id' : ponencia.id}) }}" method="post">
+                                    <button type="submit" class="btn btn-xs btn-info">
+                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                    </button>
+                                </form>
+                                <form action="{{ path('ponencias_eliminar', {'id' : ponencia.id}) }}" method="post">
+
+                                <button class="btn btn-xs btn-danger">
+                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                </button>
+                                </form>
+
+                            </div>
+
+                            <div class="hidden-md hidden-lg">
+                                <div class="inline pos-rel">
+                                    <button class="btn btn-minier btn-primary dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            data-position="auto">
+                                        <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                    </button>
+
+                                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                                        <li>
+                                            <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																			<span class="blue">
+																				<i class="ace-icon fa fa-search-plus bigger-120"></i>
+																			</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																			<span class="green">
+																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																			</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																			<span class="red">
+																				<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																			</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="detail-row" hidden="hidden">
+                        <td colspan="8">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <blockquote>
+                                        <p class="lighter line-height-125 ">
+
+                                            {{ ponencia.resumen }}
+                                        </p>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <div class="modal fade bs-modal-lg" id="large{{ ponencia.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h4 class="modal-title">Autores</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {% for autor in ponencia.autor %}
+                                    <div class="portlet">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <i class="ace-icon glyphicon glyphicon-user" data-icon-show="fa-plus" data-icon-hide="fa-minus" style="font-size: 25px; color: #49586A; margin: 10px 5px -13px  0;"></i>
+                                                <h4 class="widget-title lighter col-md-12" style="margin: 0 0 0 20px;">{{ autor.nombre }} {{ autor.apellidos }}</h4>
+                                            </div>
+                                            <div class="tools">
+                                                <a href="javascript:;" class="expand">
+                                                </a>
+                                                <a href="{{ path('ponencias_eliminar_autor', {'ponencias': ponencia.id, 'autor': autor.id}) }}"><i class="ace-icon fa fa-trash-o red bigger-130 middle"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body display-hide">
+                                            <div class="row">
+                                                <div class="widget-main padding-6 no-padding-left no-padding-right">
+                                                    <div class="col-sm-12">
+                                                        <div class="well well-lg">
+                                                            <div class="profile-user-info profile-user-info-striped">
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Nombre: </div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span>{{ autor.nombre }}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Apellidos: </div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span>{{ autor.apellidos}}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Correo: </div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span>{{ autor.correo }}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Pais: </div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span>{{ autor.pais.pais }}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Tipo de Autor: </div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span>{{ autor.tipoAutor.tipoAutor }}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Institución:  </div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span>{{ autor.institucion }}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div><!-- /.col -->
+                                                </div>
+                                                <div class="col-md-12 ">
+
+                                                        <!-- <form action="#" class="form-horizontal">
+
+                                                            <div class="form">
+                                                                <div class="form-group">
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                        <div class="todo-taskbody-user">
+                                                                            <img class="todo-userpic pull-left" src="../../assets/admin/layout/img/avatar6.jpg" width="50px" height="50px">
+                                                                            <span class="todo-username pull-left">Vanessa Bond</span>
+                                                                            <button type="button" class="todo-username-btn btn btn-circle btn-default btn-xs">&nbsp;edit&nbsp;</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-sm-4">
+                                                                        <div class="todo-taskbody-date pull-right">
+                                                                            <button type="button" class="todo-username-btn btn btn-circle btn-default btn-xs">&nbsp; Complete &nbsp;</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="col-md-12">
+                                                                        <input type="text" class="form-control todo-taskbody-tasktitle" placeholder="Task Title...">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="col-md-12">
+                                                                        <textarea class="form-control todo-taskbody-taskdesc" rows="8" placeholder="Task Description..."></textarea>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="col-md-12">
+                                                                        <div class="input-icon">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                            <input type="text" class="form-control todo-taskbody-due" placeholder="Due Date...">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="col-md-12">
+                                                                        <input type="text" class="form-control todo-taskbody-tags" placeholder="Tags..." value="Pending, Requested">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-actions right todo-form-actions">
+                                                                    <button class="btn btn-circle btn-sm green-haze">Save Changes</button>
+                                                                    <button class="btn btn-circle btn-sm btn-default">Cancel</button>
+                                                                </div>
+                                                            </div>
+
+                                                        </form>-->
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+
+
+
+{% endblock %}
+{% block scriptpage %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/clockface/js/clockface.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/fuelux/js/spinner.min.js') }}"></script>
+{% endblock %}

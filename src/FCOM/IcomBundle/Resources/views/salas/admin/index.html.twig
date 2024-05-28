@@ -1,0 +1,711 @@
+{% extends 'plantillas/Backend/bakendPrincipal.html.twig' %}
+{% block stylepage %}
+    {{ parent() }}
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/clockface/css/clockface.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datepicker/css/datepicker3.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}"/>
+<link href="{{ asset('bundles/fcomicom/metronic/') }}assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('bundles/fcomicom/metronic/') }}assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('bundles/fcomicom/metronic/') }}assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+
+
+
+{% endblock %}
+{% block pagecontent %}
+    {{ parent() }}
+    {% if (respuesta != "") %}
+        {% if (respuesta != "Final") %}
+            {% if (respuesta != "IniciarSMA") %}
+                <div class="alert alert-block alert-danger fade in" style="margin:0 0 50px 0;">
+                    <a href="{{ path('salas_index') }}" class="close" data-dismiss="alert"></a>
+                    <h4 class="alert-heading">Error!</h4>
+                    <p> {{ respuesta }} </p>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    {% if respuesta == "Final" %}
+        <div class="alert alert-block alert-success fade in" style="margin:0 0 50px 0;">
+            <a href="{{ path('salas_index') }}" class="close" data-dismiss="alert"></a>
+            <h4 class="alert-heading">Programa Completado!</h4>
+            <p>
+                El programa cientifico se creo correctamente.....
+            </p>
+        </div>
+    {% endif %}
+    {% if respuesta == "IniciarSMA" %}
+        <div class="alert alert-block alert-danger fade in" style="margin:0 0 50px 0;">
+            <a href="{{ path('salas_index') }}" class="close" data-dismiss="alert"></a>
+            <h4 class="alert-heading">Error!</h4>
+            <p> El sistema para generar el programa del evento no esta ejecutándose </p>
+        </div>
+    {% endif %}
+
+
+    <div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs font-green-sharp"></i>
+            <span class="caption-subject font-green-sharp bold uppercase">Salas a Programar</span>
+        </div>
+
+        <div class="actions btn-set">
+            <!-- <button type="button" name="back" class="btn btn-default btn-circle"><i class="fa fa-angle-left"></i> Back</button>
+            <button class="btn btn-default btn-circle "><i class="fa fa-reply"></i> Reset</button>-->
+
+            {% if respuesta == "Final" %}
+            <div class="col-md-7">
+                    <a class="btn btn-circle default red-stripe" data-target="#large" data-toggle="modal">Listado de Ponencia por Organizar </a>
+            </div>
+                {% endif %}
+
+            <div class="col-md-2">
+                <form action="{{ path('salas_crearPrograma') }}">
+                    <input hidden="hidden" name="accion" value="enviarmensaje">
+                    <button class="btn green-haze btn-circle" type="submit"   ><i class="fa fa-check-circle"></i> Crear Programa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="portlet-body">
+    <!-- <div class="table-toolbar">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="btn-group">
+                    <button id="sample_editable_1_new" class="btn green">
+                        Adicionar <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet light bordered">
+        <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            {{  form_start(form_sala, {'attr' : {'enctype' : 'multipart/form-data', 'role' : 'form', 'class' : 'form-horizontal'}}) }}
+                <div class="form-body">
+                    <h3 class="form-section">Nueva Sala</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Nombre Sala</label>
+                                <div class="col-md-7">
+                                    {{ form_widget(form_sala.nombre, {'attr' : {'class' : 'form-control', 'id' : 'nombre', 'name' : 'Nombre' }}
+                                    ) }}
+
+                                    <span class="text-danger" style="float: left;">{{ form_errors(form_sala.nombre) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label class="control-label col-md-3">Dia</label>
+                                <div class="col-md-7">
+
+                                        {{ form_widget(form_sala.dia, {'attr' : {'class' : 'form-control', 'id' : 'dia', 'name' : 'Dia', 'placeholder' : 'seleccionar' }}
+                                        ) }}
+
+                                        <span class="text-danger" style="float: left;">{{ form_errors(form_sala.dia) }}</span>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Hora Inicio</label>
+
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            {{ form_widget(form_sala.horaInicio, {'attr' : {'class' : 'form-control ', 'id' : 'horaInicio', 'name' : 'horaInicio' }}
+                                            ) }}
+
+
+                                            <span class="text-danger" style="float: left;">{{ form_errors(form_sala.horaInicio) }}</span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="input-group">
+
+                                    </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Capacidad</label>
+                                <div class="col-md-7">
+                                    <div id="spinner1">
+                                        <div class="input-group input-small">
+                                            {{ form_widget(form_sala.capacidad, {'attr' : {'class' : 'form-control', 'id' : 'Capacidad', 'name' : 'capacidad' }}
+                                            ) }}
+
+                                            <div class="spinner-buttons input-group-btn btn-group-vertical">
+                                                <button type="button" class="btn spinner-up btn-xs blue">
+                                                    <i class="fa fa-angle-up"></i>
+                                                </button>
+                                                <button type="button" class="btn spinner-down btn-xs blue">
+                                                    <i class="fa fa-angle-down"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <span class="help-block">
+
+                                    <span class="text-danger" style="float: left;">{{ form_errors(form_sala.capacidad) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Hora Final</label>
+
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        {{ form_widget(form_sala.horaFinal, {'attr' : {'class' : 'form-control ', 'id' : 'horaFinal', 'name' : 'horaFinal' }}
+                                        ) }}
+
+
+                                        <span class="text-danger" style="float: left;">{{ form_errors(form_sala.horaFinal) }}</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Tipo de Actividad</label>
+                                <div class="col-md-7">
+                                    <div class="radio-list">
+                                        {{ form_widget(form_sala.tipoActividad, {'attr' : {'class' : 'form-control', 'id' : 'TipoActividad', 'name' : 'tipoActividad' }}
+                                        ) }}
+                                    <span class="help-block">
+
+                                        <span class="text-danger" style="float: left;">{{ form_errors(form_sala.tipoActividad) }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+
+                    <!--/row-->
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <input type="hidden" name="duracion" value="1">
+                                    <input type="hidden" name="asignacion" value="0">
+
+                                    {{ form_widget(form_sala.save, {'label' : 'Guardar', 'attr' : {'class' : 'btn green' }}) }}
+                                    <button type="button" class="btn default">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                </div>
+            {{ form_end(form_sala) }}
+            <!-- END FORM-->
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+    {% for dur in duracion %}
+        <div class="col-md-12 ">
+            <!-- BEGIN Portlet PORTLET-->
+            <div class="portlet">
+                <div class="portlet-title">
+                    <div class="caption">
+                        Datos Para Organizar
+                    </div>
+                    <div class="tools">
+                        <a href="#myModal3" role="button" class="btn btn-circle btn-default" data-toggle="modal" style="height: 30px;">
+                            <i class="glyphicon glyphicon-pencil "></i> </a>
+
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row list-separated profile-stat" style="margin: 0 0 10px 0;">
+                        <div class="col-md-2 col-sm-1 col-xs-1">
+                            <div class="uppercase profile-stat-title">
+                                {{ dur.expPonencias }} min
+                            </div>
+                            <div class="uppercase profile-stat-text">
+                                Tiempo<br> Exposición:
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-1 col-xs-1" style="margin: 0 0 0 -60px;">
+                            <div class="uppercase profile-stat-title">
+                                {{ dur.pregPonencias }} min
+                            </div>
+                            <div class="uppercase profile-stat-text">
+                                Tiempo <br> Preguntas:
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-1 col-xs-1" style="margin: 0 0 0 -53px;">
+                            <div class="uppercase profile-stat-title">
+                                {{ dur.debate }} min
+                            </div>
+                            <div class="uppercase profile-stat-text">
+                                Tiempo <br> Debate:
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-1 col-xs-1" style="margin: 0 0 0 -53px;">
+                            <div class="uppercase profile-stat-title">
+                                {{ dur.receso }} min
+                            </div>
+                            <div class="uppercase profile-stat-text">
+                                Tiempo <br>Receso:
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-1 col-xs-1" style="margin: 0 0 0 -38px;">
+                            <div class="uppercase profile-stat-title">
+                                {{ dur.intermedio }} min
+                            </div>
+                            <div class="uppercase profile-stat-text">
+                                Tiempo <br> Intercambio:
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-1 col-xs-1" style="margin: 0 0 0 -32px;">
+                            <div class="uppercase profile-stat-title">
+                                {{ dur.horaCambio | date ('h') }} hora
+                            </div>
+                            <div class="uppercase profile-stat-text">
+                                Tiempo <br>cambio de poster::
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-1 col-xs-1" style="margin: 0 0 0 -19px;">
+                            <div class="uppercase profile-stat-title">
+                                {{ dur.cantPoster }} poster
+                            </div>
+                            <div class="uppercase profile-stat-text">
+                                Cantidad de poster<br> por salas:
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            <!-- END Portlet PORTLET-->
+        </div>
+
+
+
+
+
+    <div class="col-md-11" style="margin: -16px  0 0 0;">
+        <div class="btn-group pull-right">
+            <label>
+                Display records
+                <br>
+                <form action="{{ path('salas_index') }}">
+                    <select style="margin: 0 5px 0 0; float: left;" name="records" class="form-control input-sm" name="dynamic-table_length" aria-controls="dynamic-table">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <button type="submit" class="btn btn-xs btn-info" style="position: absolute; margin: -4% 0 0 0">
+                        <i class="ace-icon fa fa-check bigger-120"></i>
+                    </button>
+                </form>
+            </label>
+        </div>
+    </div>
+    </div>
+    <hr>
+
+    <table class="table table-striped table-bordered table-hover" id="sample_1">
+    <thead>
+    <tr>
+        <th class="table-checkbox">
+            <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"/>
+        </th>
+        <th>
+            {{ knp_pagination_sortable(pagination, 'Nombre', 's.nombre' ) }}
+        </th>
+        <th>
+            Dia
+        </th>
+        <th>
+            Capacidad
+        </th>
+        <th>
+            Horainicio
+        </th>
+        <th>
+            Horafinal
+        </th>
+        <th>
+            Hora Inicio Actual
+        </th>
+        <th>
+            Tipoactividad
+        </th>
+        <th>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for sala in pagination %}
+    <tr class="odd gradeX">
+        <td>
+            <input type="checkbox" class="checkboxes" value="1"/>
+        </td>
+        <td>
+            {{ sala.nombre }}
+        </td>
+        <td>
+            {{ sala.dia.dia }}
+        </td>
+        <td>
+            {{ sala.capacidad }}
+        </td>
+        <td>
+            {% if sala.horaInicio %}{{ sala.horaInicio|date('H:i:s') }}{% endif %}
+        </td>
+        <td class="center">
+            {% if sala.horaFinal %}{{ sala.horaFinal|date('H:i:s') }}{% endif %}
+        </td>
+        <td class="center">
+            {% if sala.horaInicioActual %}{{ sala.horaInicioActual|date('H:i:s') }}{% endif %}
+        </td>
+        <td>
+            {{ sala.tipoActividad }}
+
+        </td>
+        <td>
+
+                <a href="#myModal1{{ sala.id }}" role="button" class="btn btn-xs btn-info" data-toggle="modal">
+                    <i class="ace-icon fa fa-pencil bigger-120"></i> </a>
+
+                <a href="#myModal2{{ sala.id }}" role="button" class="btn red" data-toggle="modal">
+                    <i class="ace-icon fa fa-trash-o bigger-120"></i> </a>
+
+
+            <div id="myModal1{{ sala.id }}" class="modal fade" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Actualizar Salas</h4>
+                        </div>
+                        <form action="{{ path('salas_editar', { 'id': sala.id}) }}" method="post" class="form-horizontal form-row-seperated" novalidate="novalidate">
+                            <div class="modal-body form">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Nombre</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="text" name="nombre" class="form-control" id="dia" value="{{ sala.nombre}}">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Dia</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <select class="form-control" name="dia">
+                                                {% for dia in dias %}
+                                                <option value="{{ dia.id }}" name="dia">{{ dia.dia }}</option>
+                                                {% endfor %}
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" >
+                                    <label class="col-sm-4 control-label">Hora Inicio</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="time" name="horaInicio" class="form-control " id="horaInicio" value="{{ sala.horaInicio|date('h:i:s')}}">
+                                            <span class="input-group-btn">
+												<button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
+												</span>
+
+                                            <span class="text-danger" style="float: left;">{{ form_errors(form_sala.horaInicio) }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" >
+                                    <label class="col-sm-4 control-label">Hora Final</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="time" name="horaFinal" class="form-control timepicker timepicker-no-seconds" id="horaInicio" value="{{ sala.horaFinal|date('h:i:s')}}">
+
+                                            <span class="input-group-btn">
+												<button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
+												</span>
+
+                                            <span class="text-danger" style="float: left;">{{ form_errors(form_sala.horaFinal) }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" >
+                                    <label class="col-sm-4 control-label">Capacidad</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="number" name="capacidad" class="form-control" id="touchspin_demo1" value="{{ sala.capacidad}}">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" >
+                                    <label class="col-sm-4 control-label">Tipo Actividad</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <select class="form-control" name="tipoActividad">
+                                                <option value="">{{ sala.tipoActividad }}</option>
+                                                <option value="role_usuario" name="tipoActividad">Trabajo en Comisiones</option>
+                                                <option value="role_editor" name="tipoActividad">Publicación de Poster</option>
+                                            </select>
+                                            <span class="help-block">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-120"></i> Guardar</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="myModal2{{ sala.id }}" class="modal fade" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Esta seguro que desea eliminar la sala: <b class="text-primary"> {{ sala.nombre }} </b></h4>
+
+                        </div>
+                        <form action="{{ path('salas_eliminar', { 'id': sala.id}) }}" method="post"
+                              id="estado">
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>SI</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div id="myModal3" class="modal fade" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Actualizar Salas</h4>
+                        </div>
+                        <form action="{{ path('duracion_edit', { 'id': dur.id}) }}" method="post" class="form-horizontal form-row-seperated" novalidate="novalidate">
+                            <div class="modal-body form">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Tiempo Exposición:</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="time" name="expPonencias" class="form-control input-xsmall" id="expPonencias" value="{{ dur.expPonencias}}" >
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Tiempo Preguntas:</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="text" name="pregPonencias" class="form-control input-xsmall" id="pregPonencias" value="{{ dur.pregPonencias}}" >
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" >
+                                    <label class="col-sm-4 control-label">Tiempo Debate:</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="text" name="debate" class="form-control input-xsmall" id="debate" value="{{ dur.debate}}" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" >
+                                    <label class="col-sm-4 control-label">Tiempo Receso:</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="text" name="receso" class="form-control input-xsmall" id="receso" value="{{ dur.receso}}" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" >
+                                    <label class="col-sm-4 control-label">Tiempo Intercambio:</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="text" name="intermedio" class="form-control input-xsmall" id="intermedio" value="{{ dur.intermedio}}" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" >
+                                    <label class="col-sm-4 control-label">Cantidad de poster por salas:</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="text" name="cantPoster" class="form-control input-xsmall" id="cantPoster" value="{{ dur.cantPoster}}" >
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" >
+                                    <label class="col-sm-4 control-label">Tiempo de cambio de poster:</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input type="datetime" name="horaCambio" class="form-control input-xsmall" id="horaCambio" value="{{ dur.horaCambio}}" >
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-120"></i> Guardar</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </td>
+    </tr>
+    {% endfor %}
+    {% endfor %}
+
+
+
+    </tbody>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+    <div class="modal fade bs-modal-lg" id="large" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Listado de ponencias por organizar</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped table-bordered table-hover" id="sample_1">
+                        <thead>
+                        <tr>
+                            <th style="color: #000000;">
+                                Título
+                            </th>
+                            <th>
+                                Modalidad
+                            </th>
+                            <th>
+                                Tematica
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for ponencia in ponencias %}
+                            {% if ponencia.intervalo == null %}
+                                <tr class="odd gradeX">
+                                    <td>
+                                        {{ ponencia.titulo }}
+                                    </td>
+                                    <td>
+                                        {{ ponencia.modalidad }}
+                                    </td>
+                                    <td>
+                                        {{ ponencia.tematica.abreviatura }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if ponencia.intervalo != null %}
+                                {% if ponencia.intervalo.posicion == 0 %}
+                                <tr class="odd gradeX">
+                                    <td>
+                                        {{ ponencia.titulo }}
+                                    </td>
+                                    <td>
+                                        {{ ponencia.modalidad }}
+                                    </td>
+                                    <td>
+                                        {{ ponencia.tematica.abreviatura }}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        </tbody>
+                        </table>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+
+
+
+
+{% endblock %}
+{% block scriptpage %}
+    {{ parent() }}
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/clockface/js/clockface.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/fuelux/js/spinner.min.js') }}"></script>
+
+
+
+{% endblock %}

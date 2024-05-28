@@ -1,0 +1,112 @@
+<?php
+
+namespace FCOM\IcomBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Pais
+ *
+ * @ORM\Table(name="pais")
+ * @ORM\Entity(repositoryClass="FCOM\IcomBundle\Repository\PaisRepository")
+ */
+class Pais
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pais", type="string", length=150)
+     */
+    private $pais;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Autor", mappedBy="pais")
+     */
+    private $autor;
+
+
+
+    public function __construct()
+    {
+        $this->autor = new ArrayCollection();
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set pais
+     *
+     * @param string $pais
+     * @return Pais
+     */
+    public function setPais($pais)
+    {
+        $this->pais = $pais;
+
+        return $this;
+    }
+
+    /**
+     * Get pais
+     *
+     * @return string 
+     */
+    public function getPais()
+    {
+        return $this->pais;
+    }
+
+    /**
+     * Add autor
+     *
+     * @param \FCOM\IcomBundle\Entity\Autor $autor
+     * @return Pais
+     */
+    public function addAutor(\FCOM\IcomBundle\Entity\Autor $autor)
+    {
+        $this->autor[] = $autor;
+
+        return $this;
+    }
+
+    /**
+     * Remove autor
+     *
+     * @param \FCOM\IcomBundle\Entity\Autor $autor
+     */
+    public function removeAutor(\FCOM\IcomBundle\Entity\Autor $autor)
+    {
+        $this->autor->removeElement($autor);
+    }
+
+    /**
+     * Get autor
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAutor()
+    {
+        return $this->autor;
+    }
+
+
+}

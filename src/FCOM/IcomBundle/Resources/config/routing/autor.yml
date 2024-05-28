@@ -1,0 +1,25 @@
+autor_index:
+    path:     /
+    defaults: { _controller: "FCOMIcomBundle:Autor:index" }
+    methods:  GET
+
+autor_show:
+    path:     /{id}/mostrar
+    defaults: { _controller: "FCOMIcomBundle:Autor:show" }
+    methods:  GET
+
+autor_new:
+    path:     /nueva
+    defaults: { _controller: "FCOMIcomBundle:Autor:new" }
+    methods:  [GET, POST]
+
+autor_edit:
+    path:     /{id}/editar
+    defaults: { _controller: "FCOMIcomBundle:Autor:edit" }
+    methods:  [GET, POST, DELETE]
+
+autor_delete:
+    path:     /{id}/eliminar
+    defaults: { _controller: "FCOMIcomBundle:Autor:delete" }
+    methods:  [GET, POST, DELETE]
+

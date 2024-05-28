@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Duracions list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Expponencias</th>
+                <th>Pregponencias</th>
+                <th>Debate</th>
+                <th>Receso</th>
+                <th>Intermedio</th>
+                <th>Cantposter</th>
+                <th>Horacambio</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for duracion in duracions %}
+            <tr>
+                <td><a href="{{ path('duracion_show', { 'id': duracion.id }) }}">{{ duracion.id }}</a></td>
+                <td>{{ duracion.expPonencias }}</td>
+                <td>{{ duracion.pregPonencias }}</td>
+                <td>{{ duracion.debate }}</td>
+                <td>{{ duracion.receso }}</td>
+                <td>{{ duracion.intermedio }}</td>
+                <td>{{ duracion.cantPoster }}</td>
+                <td>{% if duracion.horaCambio %}{{ duracion.horaCambio|date('H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('duracion_show', { 'id': duracion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('duracion_edit', { 'id': duracion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('duracion_new') }}">Create a new duracion</a>
+        </li>
+    </ul>
+{% endblock %}

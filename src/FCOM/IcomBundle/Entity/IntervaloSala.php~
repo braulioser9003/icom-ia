@@ -1,0 +1,130 @@
+<?php
+
+namespace FCOM\IcomBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * IntervaloSala
+ *
+ * @ORM\Table(name="intervalo_sala")
+ * @ORM\Entity(repositoryClass="FCOM\IcomBundle\Repository\IntervaloSalaRepository")
+ */
+class IntervaloSala
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="posicion", type="integer")
+     */
+    private $posicion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="horaInicio", type="time")
+     */
+    private $horaInicio;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="horaFinal", type="time")
+     */
+    private $horaFinal;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="intervalo", inversedBy="IntervaloSala")
+     * @ORM\JoinColumn(name="intervalo_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $intervalo;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set posicion
+     *
+     * @param integer $posicion
+     * @return IntervaloSala
+     */
+    public function setPosicion($posicion)
+    {
+        $this->posicion = $posicion;
+
+        return $this;
+    }
+
+    /**
+     * Get posicion
+     *
+     * @return integer 
+     */
+    public function getPosicion()
+    {
+        return $this->posicion;
+    }
+
+    /**
+     * Set horaInicio
+     *
+     * @param \DateTime $horaInicio
+     * @return IntervaloSala
+     */
+    public function setHoraInicio($horaInicio)
+    {
+        $this->horaInicio = $horaInicio;
+
+        return $this;
+    }
+
+    /**
+     * Get horaInicio
+     *
+     * @return \DateTime 
+     */
+    public function getHoraInicio()
+    {
+        return $this->horaInicio;
+    }
+
+    /**
+     * Set horaFinal
+     *
+     * @param \DateTime $horaFinal
+     * @return IntervaloSala
+     */
+    public function setHoraFinal($horaFinal)
+    {
+        $this->horaFinal = $horaFinal;
+
+        return $this;
+    }
+
+    /**
+     * Get horaFinal
+     *
+     * @return \DateTime 
+     */
+    public function getHoraFinal()
+    {
+        return $this->horaFinal;
+    }
+}

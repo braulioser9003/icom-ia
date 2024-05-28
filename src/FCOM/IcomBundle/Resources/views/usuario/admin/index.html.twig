@@ -1,0 +1,258 @@
+{% extends 'plantillas/Backend/bakendPrincipal.html.twig' %}
+{% block stylepage %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-select/bootstrap-select.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/select2/select2.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/jquery-multi-select/css/multi-select.css') }}"/>
+{% endblock %}
+{% block contentTitle %}
+    Listado de los Usuarios
+
+{% endblock %}
+{% block pagecontent %}
+    {{ parent() }}
+
+    <!-- BEGIN FORM-->
+    <hr>
+    <form action="{{ path('usuario_filtrar') }}" method="post" class="form-horizontal form-row-seperated">
+    <div class="form-body">
+        <div class="form-group">
+            <div class="col-md-2">
+                <div class="input-inline input-medium">
+                    <div class="input-group">
+                                                <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                                </span>
+                        <input type="text" class="form-control" placeholder="User Name" name="username">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-2">
+                <select class="form-control " data-placeholder="Rol........" name="role">
+                    <option value="ROLE_USUARIO" name="role">role_usuario</option>
+                    <option value="ROLE_EDITOR" name="role">role_editor</option>
+                    <option value="ROLE_ADMIN" name="role">role_admin</option>
+                    <option value="ROLE_CODGENERAR" name="role">role_codGenerar</option>
+                </select>
+
+            </div>
+
+            <div class="col-md-4">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn green-haze">
+                        Filtrar &nbsp; <i class="m-icon-swapright m-icon-white"></i>
+                    </button>
+                    </span>
+
+            </div>
+        </div>
+
+    </div>
+    </form>
+    <hr>
+
+    <div id="tab_1_5" class="tab-pane">
+
+    <div class="table-responsive">
+    <table class="table table-striped table-bordered table-advance table-hover">
+    <thead>
+    <tr>
+        <th>
+            Imagen
+        </th>
+        <th>
+            Username
+        </th>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Apellidos
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Role
+        </th>
+        <th>
+            IsActive
+        </th>
+        <th>
+            Createdat
+        </th>
+        <th>
+            Updateat
+        </th>
+        <th>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for usuario in usuarios %}
+    <tr>
+        <td>
+            <img src="../../assets/admin/pages/media/profile/avatar1.jpg" alt=""/>
+        </td>
+        <td>
+            {{ usuario.username }}
+        </td>
+        <td>
+            {{ usuario.nombre }}
+        </td>
+        <td>
+            {{ usuario.apellidos }}
+        </td>
+        <td>
+            {{ usuario.email }}
+        </td>
+        <td>
+            {{ usuario.role }}
+        </td>
+        <td align="center">
+            {% if usuario.isActive %}
+                <span class="label label-sm label-success"><i class="ace-icon fa fa-check bigger-120"></i></span>
+            {% else %}
+                <span class="label label-danger label-sm"><i class="ace-icon fa fa-ban  bigger-120"></i></span>
+            {% endif %}
+        </td>
+        <td>
+            {% if usuario.createdAt %}{{ usuario.createdAt|date('Y-m-d H:i:s') }}{% endif %}
+        </td>
+        <td>
+            {% if usuario.updatedAt %}{{ usuario.updatedAt|date('Y-m-d H:i:s') }}{% endif %}
+        </td>
+        <td>
+
+            <a href="#myModal1{{ usuario.id }}" role="button" class="btn btn-xs btn-info" data-toggle="modal">
+                <i class="ace-icon fa fa-pencil bigger-120"></i> </a>
+
+            {% if  usuario.role != 'ROLE_ADMIN'  %}
+            <a href="#myModal2{{ usuario.id }}" role="button" class="btn red" data-toggle="modal">
+                <i class="ace-icon fa fa-trash-o bigger-120"></i> </a>
+            {% endif  %}
+
+            <div id="myModal1{{ usuario.id }}" class="modal fade" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Actualizar Usuario</h4>
+                        </div>
+                        <form action="{{ path('usuario_edit', { 'usuario': usuario.id}) }}" method="post" class="form-horizontal form-row-seperated" novalidate="novalidate">
+                        <div class="modal-body form">
+                                <div class="form-group" >
+
+                                    <label class="col-sm-4 control-label">User Name</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <input type="text" name="username" class="form-control" id="username" value="{{ usuario.username }}">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Nombre</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <input type="text" name="nombre" class="form-control" id="nombre" value="{{ usuario.nombre }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" >
+                                    <label class="col-sm-4 control-label">Apellidos</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <input type="text" name="apellidos" class="form-control" id="apellidos" value="{{ usuario.apellidos }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" >
+                                    <label class="col-sm-4 control-label">Email</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <input type="text" name="email" class="form-control" id="email" value="{{ usuario.email }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" >
+                                    <label class="col-sm-4 control-label">Rol</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <select class="form-control input-small select2me" data-placeholder="Rol........" name="role">
+                                                <option value="ROLE_USUARIO" name="role">role_usuario</option>
+                                                <option value="ROLE_EDITOR" name="role">role_editor</option>
+                                                <option value="ROLE_ADMIN" name="role">role_admin</option>
+                                                <option value="ROLE_CODGENERAR" name="role">role_codGenerar</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" >
+                                    <label class="col-sm-4 control-label">Activa</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <input type="checkbox" name="isActive" class="make-switch" id="isActive" checked data-on-text="SI" data-off-text="NO">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                        </div>
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-120"></i> Guardar</button>
+
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="myModal2{{ usuario.id }}" class="modal fade" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Esta seguro que desea eliminar el usuario: <b class="text-primary"> {{ usuario.username }} </b></h4>
+
+                        </div>
+                        <form action="{{ path('usuario_delete', { 'id': usuario.id}) }}" method="post"
+                              id="estado">
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>SI</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+    <div class="margin-top-20">
+        <div class="navigation">
+            {{ knp_pagination_render(usuarios) }}
+        </div>
+    </div>
+    </div>
+{% endblock %}
+{% block scriptpage %}
+    {{ parent() }}
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
+{% endblock %}

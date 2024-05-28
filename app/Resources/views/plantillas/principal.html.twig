@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML+RDFa 1.1//EN">
+<html lang="es" dir="ltr" version="HTML+RDFa 1.1"
+      xmlns:content="http://purl.org/rss/1.0/modules/content/"
+      xmlns:dc="http://purl.org/dc/terms/"
+      xmlns:foaf="http://xmlns.com/foaf/0.1/"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+      xmlns:sioc="http://rdfs.org/sioc/ns#"
+      xmlns:sioct="http://rdfs.org/sioc/types#"
+      xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{% block title %}ICOM 2017{% endblock %}</title>
+    {% block stylesheets %}
+        <link type="text/css" rel="stylesheet" href="{{ asset('') }}" >
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/fcomicom/css/estilo2.css') }}" >
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/fcomicom/css/estilo3.css') }}" >
+        <link href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('bundles/fcomicom/metronic/assets/admin/layout/css/layout.css') }}" rel="stylesheet" type="text/css">
+        <link id="style_color" href="{{ asset('bundles/fcomicom/metronic/assets/admin/layout/css/themes/darkblue.css') }}" rel="stylesheet" type="text/css">
+
+        <link href="{{ asset('bundles/fcomicom/metronic/assets/global/css/components-rounded.css') }}" id="style_components"
+              rel="stylesheet" type="text/css">
+
+        <link href="{{ asset('bundles/fcomicom/metronic/assets/frontend/layout/css/style.css') }}" rel="stylesheet">
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+
+
+    {% endblock %}
+
+
+
+</head>
+<body>
+
+{% block body %}
+    {{ render(url('acme_privacy')) }}
+    {% block header %}
+        {{ include('plantillas/headed.html.twig') }}
+    {% endblock %}
+    {% block contenido %}
+    {% endblock %}
+    {% block footer %}
+        {{ include('plantillas/footer.html.twig') }}
+    {% endblock %}
+{% endblock %}
+{% block javascripts %}
+
+
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+
+    <!-- BEGIN CORE PLUGINS -->
+
+    <!--[if lt IE 9]>
+
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript"
+            src="{{ asset('bundles/fcomicom/files/js/js_Xjzh1hVfcgVAixhmmB6Go8TUMPOiprA-2vkC-oWXARQ.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('bundles/fcomicom/files/js/js_f_BpsloZtITWNBq8h8TQNh4SUGlZKD__yTkMLSN2_t8.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('bundles/fcomicom/files/js/js_VzhcwNCg7omFdtejK8OLUzRYEO2BP6MJIokThmwr7gw.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('bundles/fcomicom/files/js/js_RjYVCFbCakayfSxqir5zeY3xW7OuP844SydAd3486n8.js') }}"></script>
+    <script type="text/javascript">
+        <!--//-->
+        <![CDATA[//><!--
+        jQuery.extend(Drupal.settings, {
+            "basePath": "\/",
+            "pathPrefix": "",
+            "ajaxPageState": {
+                "theme": "responsive",
+                "theme_token": "Np705w-TKvwwewkUWzjvDFMA6aWCDfSgSK_UXa9EgSA",
+                "js": {
+                    "misc\/jquery.js": 1,
+                    "misc\/jquery.once.js": 1,
+                    "misc\/drupal.js": 1,
+                    "sites\/all\/modules\/spamspan\/spamspan.js": 1,
+                    "public:\/\/languages\/es_SBli9C1r_pkoV19hTkLhwa50e0x9aAS5X0qL-WsGCTA.js": 1,
+                    "sites\/all\/themes\/responsive\/js\/jquery.flexslider-min.js": 1,
+                    "sites\/all\/themes\/responsive\/js\/slide.js": 1,
+                    "sites\/all\/libraries\/colorbox\/jquery.colorbox-min.js": 1,
+                    "sites\/all\/modules\/colorbox\/js\/colorbox.js": 1,
+                    "sites\/all\/modules\/colorbox\/styles\/default\/colorbox_style.js": 1,
+                    "sites\/all\/modules\/colorbox\/js\/colorbox_load.js": 1,
+                    "sites\/all\/modules\/colorbox\/js\/colorbox_inline.js": 1,
+                    "sites\/all\/themes\/responsive\/js\/jquery.mobilemenu.js": 1,
+                    "sites\/all\/themes\/responsive\/js\/superfish.js": 1,
+                    "sites\/all\/themes\/responsive\/js\/custom.js": 1,
+                    "sites\/all\/themes\/responsive\/js\/jquery.colorbox-min.js": 1
+                },
+                "css": {
+                    "modules\/system\/system.base.css": 1,
+                    "modules\/system\/system.menus.css": 1,
+                    "modules\/system\/system.messages.css": 1,
+                    "modules\/system\/system.theme.css": 1,
+                    "modules\/comment\/comment.css": 1,
+                    "sites\/all\/modules\/date\/date_api\/date.css": 1,
+                    "sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css": 1,
+                    "modules\/field\/theme\/field.css": 1,
+                    "modules\/node\/node.css": 1,
+                    "modules\/search\/search.css": 1,
+                    "modules\/user\/user.css": 1,
+                    "sites\/all\/modules\/views\/css\/views.css": 1,
+                    "sites\/all\/modules\/colorbox\/styles\/default\/colorbox_style.css": 1,
+                    "sites\/all\/modules\/ctools\/css\/ctools.css": 1,
+                    "sites\/all\/themes\/responsive\/css\/responsive-style.css": 1,
+                    "sites\/all\/themes\/responsive\/css\/layout.css": 1,
+                    "sites\/all\/themes\/responsive\/flexslider.css": 1,
+                    "sites\/all\/themes\/responsive\/style.css": 1,
+                    "sites\/all\/themes\/responsive\/local.css": 1,
+                    "sites\/all\/themes\/responsive\/color\/colors.css": 1,
+                    "sites\/all\/themes\/responsive\/css\/font-awesome.min.css": 1
+                }
+            },
+            "colorbox": {
+                "opacity": "0.85",
+                "current": "{current} of {total}",
+                "previous": "\u00ab Prev",
+                "next": "Next \u00bb",
+                "close": "Close",
+                "maxWidth": "98%",
+                "maxHeight": "98%",
+                "fixed": true,
+                "mobiledetect": true,
+                "mobiledevicewidth": "480px"
+            }
+        });
+        jQuery(document).ready(function () {
+            // initiate layout and plugins
+            Metronic.init(); // init metronic core components
+            Layout.init(); // init current layout
+            Demo.init(); // init demo features\
+            Profile.init(); // init page demo
+        });
+        //--><!
+        ]]>
+    </script>
+    <!--[if lt IE 9]>
+    <script src="{{ asset('http://html5shiv.googlecode.com/svn/trunk/html5.js') }}"></script><![endif]-->
+
+
+{% endblock %}
+</body>
+</html>
+
+

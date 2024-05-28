@@ -1,0 +1,65 @@
+
+<header id="head" {% if is_granted('IS_AUTHENTICATED_FULLY') %}style="margin: 2.61% 0 0 0"{% endif %}>
+    <!--Cabecera-->
+
+    <section id="top-header">
+        <div class="container">
+            <hgroup id="head-left" class="three columns alpha">
+                <div id="logo">
+                    <a href="{{ path('fcom_icom_index') }}" title="Inicio">
+                        <img  src="{{ asset('bundles/fcomicom/files/marca-08.png') }}" alt="Inicio"/></a>
+                </div>
+            </hgroup>
+
+            <div class="nine columns omega" id="head-center">
+                <div class=info>
+                    <div class="info-evento">
+                        <h2>DEL 13 AL 17 DE NOVIEMBRE 2017</h2>
+
+                        <p>Palacio de Convenciones, La Habana, Cuba</p>
+                    </div>
+
+
+                    <div id="socialbar" style="width:169px">
+                        <ul class="social">
+
+                            <li id="tw"><a href="https://twitter.com/icomcuba" target="_blank"
+                                           title="Síganos en Twitter"><img
+                                            src="{{ asset('bundles/fcomicom/images/tw.png') }}"></a>
+                            </li>
+                            <li id="fb"><a href="https://www.facebook.com/icomcuba" target="_blank"
+                                           title="Síganos en Facebook"><img
+                                            src="{{ asset('bundles/fcomicom/images/fb.png') }}"></a>
+                            </li>
+                            <li id="mail"><a href="/?q=contact"
+                                             title="Contáctenos"><img
+                                            src="{{ asset('bundles/fcomicom/images/mail.png') }}"></a></li>
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="head-right" class="four columns omega">
+                <ul>
+                    <li>
+                    </li>
+
+                    {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                    <li class="user-account">
+                        <a href="{{ path('fcom_icom_login') }}" title="Inicie sesión">Inicie Sesión</a>
+                    </li>
+                    {% endif %}
+
+
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!--Menú Principal-->
+    {{ include('plantillas/menu_principal.html.twig') }}
+
+</header>
+

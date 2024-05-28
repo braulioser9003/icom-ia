@@ -1,0 +1,667 @@
+{% extends 'plantillas/principal.html.twig' %}
+
+{% block contenido %}
+    {{ parent() }}
+    {{ include('plantillas/formularios.html.twig') }}
+    {{ include('plantillas/formularios-wizard.html.twig') }}
+
+    <div class="page-content">
+
+    <!-- PAGE CONTENT BEGINS -->
+
+
+    <div class="widget-body">
+    <div class="widget-main">
+    <div id="fuelux-wizard-container">
+    <div>
+        <ul class="steps">
+            <li data-step="1" >
+                <span class="step">1</span>
+                <span class="title">Resumen de Ponencia</span>
+            </li>
+
+            <li data-step="2">
+                <span class="step">2</span>
+                <span class="title">Autores</span>
+            </li>
+
+            <li data-step="3" class="active">
+                <span class="step">3</span>
+                <span class="title">Resumen en Revisión</span>
+            </li>
+        </ul>
+    </div>
+
+    <hr/>
+
+    <div class="step-content pos-rel">
+    <div class="step-pane active" data-step="1">
+        <h3 class="lighter block green">Datos del Resumen de Ponencia:</h3>
+
+        <form novalidate="novalidate" role="form" method="post" class="form-horizontal"
+              action="{{ path('ponencias_editar', { 'id': ponencias.id}) }}">
+
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                       for="email">{{ form_label(form.titulo) }}</label>
+
+                <div class="col-xs-12 col-sm-9">
+                    <div class="clearfix">
+                        {{ form_widget(form.titulo, {'attr' : {'class' : 'col-xs-12 col-sm-6', 'id' : 'titulo', 'name' : 'titulo' }}
+                        ) }}
+                        <span class="text-danger" style="float: left;">{{ form_errors(form.titulo) }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-2"></div>
+
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                       for="password">{{ form_label(form.resumen) }}</label>
+
+                <div class="col-xs-12 col-sm-9">
+                    <div class="clearfix">
+                        {{ form_widget(form.resumen, {'attr' : {'class' : 'col-xs-12 col-sm-6', 'id' : 'resumen', 'name' : 'resumen' }}
+                        ) }}
+                        <span class="text-danger" style="float: left;">{{ form_errors(form.resumen) }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-2"></div>
+
+            <div class="form-group">
+                <label class="control-label col-xs-5 col-sm-3 no-padding-right"
+                       for="password2">{{ form_label(form.palabraClave) }}</label>
+
+                <div class="col-xs-12 col-sm-2">
+                    <div class="clearfix">
+                        <ul class="palabraClave" data-prototype="{{ form_widget(form.palabraClave.vars.prototype)|e }}"
+                            style="list-style: none;">
+                            <li style="float: left;">{{ form_widget(form.palabraClave, {'attr' : {'class' : 'col-xs-12 col-sm-6', 'id' : 'resumen', 'name' : 'resumen' }}
+                                ) }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group" style="margin-top: 5%;">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                       for="name">{{ form_label(form.tematica) }}</label>
+
+                <div class="col-xs-12 col-sm-9">
+                    <div class="clearfix">
+                        {{ form_widget(form.tematica, {'attr' : {'class' : 'col-xs-7', 'id' : 'tematica', 'name' : 'tematica' }}
+                        ) }}
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: 5%; display: none;">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                       for="name"></label>
+
+                <div class="col-xs-12 col-sm-9">
+                    <div class="clearfix">
+                        {{ form_widget(form.estado, {'attr' : {'class' : 'col-xs-7', 'id' : 'tematica', 'name' : 'tematica' }}
+                        ) }}
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: 5%; ">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                       for="name">{{ form_label(form.modalidad) }}</label>
+
+                <div class="col-xs-12 col-sm-9">
+                    <div class="clearfix">
+                        {{ form_widget(form.modalidad, {'attr' : {'class' : 'col-xs-7', 'id' : 'modalidad', 'name' : 'modalidad'}}
+                        ) }}
+
+                    </div>
+                </div>
+            </div>
+            <div class="hr hr-dotted"></div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                       for="name"></label>
+
+                <div class="col-xs-12 col-sm-9">
+                    <div class="clearfix">
+                        {{ form_widget(form.save, {'label' : 'Guardar', 'attr' : {'class' : 'btn btn-info' }}) }}
+
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+
+
+    </div>
+
+    <div class="step-pane" data-step="2">
+    <div>
+
+
+    <div class="col-xs-12 col-sm-6 widget-container-col" id="widget-container-col-12" style="float: left;">
+    <div class="widget-box transparent collapsed" id="widget-box-12">
+        <div class="widget-header" style="border-bottom: none;">
+
+            <a href="#"  class="btn btn-primary" id="prueba">
+                Add Autor<i class="ace-icon fa glyphicon-plus align-top bigger-125 " style="font-size: 35px; margin: 0 0 0 5px;"></i>
+            </a>
+
+            <a href="#"  class="btn btn-primary hidden" id="prueba2">
+                Add Autor<i class="ace-icon fa glyphicon-plus align-top bigger-125 " style="font-size: 35px; margin: 0 0 0 5px;"></i>
+            </a>
+
+        </div>
+        <div id="form" class="hidden">
+
+
+            <form novalidate="novalidate" enctype="multipart/form-data" role="form" class="Auto Completar"></form>
+
+
+            <div class="widget-body">
+                <div class="widget-main">
+
+                    <div style="margin-top: 5px;">
+                        <div class="col-xs-10">
+                            <label for="form-field-9"> {{ form_label(form_autor.nombre) }} </label>
+
+                            <div>
+                                {{ form_widget(form_autor.nombre, {'novalidate': 'novalidate','attr' : {'class' : 'col-xs-10', 'data-rel' : 'tooltip', 'data-placement' : 'bottom', 'id' : 'form-field-6' }}
+                                ) }}
+
+                                                        <span class="text-danger"
+                                                              style="float: left;">{{ form_errors(form_autor.nombre) }}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+                    <br>
+
+                    <div style="margin-top: 5%;" class="wy">
+                        <div class="col-sm-10">
+                            <label for="form-field-9">{{ form_label(form_autor.apellidos) }}</label>
+
+                            <div>
+                                {{ form_widget(form_autor.apellidos, {'attr' : {'class' : 'col-xs-10', 'data-rel' : 'tooltip', 'data-placement' : 'bottom', 'id' : 'form-field-6' }}
+                                ) }}
+
+                                                        <span class="text-danger"
+                                                              style="float: left;">{{ form_errors(form_autor.apellidos) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+
+                    <div style="margin-top: 5%;" class="wy">
+                        <div class="col-sm-10">
+                            <label for="form-field-9">{{ form_label(form_autor.correo) }}</label>
+
+                            <div>
+                                {{ form_widget(form_autor.correo, {'attr' : {'class' : 'col-xs-10', 'data-rel' : 'tooltip', 'data-placement' : 'bottom', 'id' : 'form-field-6' }}
+                                ) }}
+
+                                                        <span class="text-danger"
+                                                              style="float: left;">{{ form_errors(form_autor.correo) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div style="margin-top: 8%; " class="wy">
+                        <div class="col-sm-11">
+                            <label for="form-field-11">{{ form_label(form_autor.pais) }}</label>
+
+                            <div style="width: 300px;">
+                                {{ form_widget(form_autor.pais, {'attr' : {'class' : 'select2', 'data-rel' : 'tooltip', 'data-placement' : 'bottom', 'id' : 'form-input-readonly' }}
+                                ) }}
+
+                                                        <span class="text-danger"
+                                                              style="float: left;">{{ form_errors(form_autor.pais) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20%; " class="wy">
+                        <div class="col-sm-10" >
+                            <label for="form-field-11">{{ form_label(form_autor.tipoAutor) }}</label>
+
+                            <div style="width: 300px;">
+                                {{ form_widget(form_autor.tipoAutor, {'attr' : {'class' : 'col-xs-6', 'data-rel' : 'tooltip', 'data-placement' : 'bottom', 'id' : 'form-input-readonly' }}
+                                ) }}
+
+                                                        <span class="text-danger"
+                                                              style="float: left;">{{ form_errors(form_autor.tipoAutor) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+
+                    <div style="margin-top: 5%;">
+                        <div class="col-sm-10" style="margin-top: 3%;">
+                            <label for="form-field-9">Pertenece a una Institución</label>
+                            {{ form_widget(form_autor.perteneceInstitucion, {'attr' : {'novalidate': 'novalidate','class' : 'ace ace-switch ace-switch-6', 'id' : 'skip-validation' }}
+                            ) }}
+                            <span class="lbl"></span>
+                        </div>
+                    </div>
+                    <br>
+                    <div style="margin-top: 5%; " class="wy">
+                        <div class="col-sm-10 hide" id="institucion" >
+                            <label for="form-field-9">Institución</label>
+
+                            <div>
+                                {{ form_widget(form_autor.institucion, {'attr' : {'class' : 'col-xs-10', 'data-rel' : 'tooltip', 'data-placement' : 'bottom', 'id' : 'form-input-readonly', 'value' : '-' }}
+                                ) }}
+
+
+                            </div>
+                        </div>
+
+                    </div><div style="margin-top: 5%; " class="wy">
+                        <div class="col-sm-10" id="institucion">
+                            <label for="form-field-9"></label>
+
+                            <div>
+
+                                <input type="hidden" value="{{ ponencias.id }}" name="ponencia">
+                                {{ form_widget(form_autor.save, {'label' : 'Guardar', 'attr' : {'class' : 'btn btn-info' }}) }}
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            {{ form_end(form_autor) }}
+
+
+
+        </div>
+
+
+
+
+
+
+    </div>
+
+    <hr>
+    <div class="row">
+
+        <div class="widget-box transparent collapsed" id="widget-box-12">
+            <div class="widget-header" style="border-bottom: none;">
+                <h4 class="widget-title lighter" style="float: left">Autores Existentes </h4>
+            </div>
+            <div class="row" style="margin: -60px 0 0 0;">
+                <form enctype="multipart/form-data" novalidate="novalidate" role="form" method="post" class="form-horizontal" action="{{ path('ponencias_estado', {'id' :  ponencias.id}) }}">
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div style="margin-top: 5%;" class="wy">
+                                <div class="col-sm-10">
+                                    <label for="form-field-9">Nombre del Autor:</label>
+
+                                    <div>
+                                        <select class="select2"   id="form-input-readonly" name="nombreBuscar">
+                                            <option name="nombreBuscar"></option>
+                                            {% for autor in autores %}
+                                                <option name="nombreBuscar" value="{{ autor.id }}">{{ autor.nombre }} {{ autor.apellidos }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+
+
+                        </div><div style="margin-top: 5%; " class="wy">
+                            <div class="col-sm-10" id="institucion">
+                                <label for="form-field-9"></label>
+
+                                <div>
+
+                                    <input type="hidden" value="{{ ponencias.id }}" name="ponencia">
+                                    <input type="submit" class="btn btn-info" value="Guardar">
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+            </div>
+
+            </form>
+
+
+
+        </div>
+
+    </div>
+
+    </div>
+
+    <div class="col-xs-5 col-sm-4 widget-container-col" id="widget-container-col-3" style="float: right; ">
+        <h3 class="row header smaller lighter blue">
+											<span class="col-sm-7">
+												<i class="ace-icon fa fa-th-large"></i>
+												Autores
+											</span><!-- /.col -->
+
+        </h3>
+        {% for autor in ponencias.autor %}
+            <div class="widget-box collapsed" id="widget-box-3">
+                <div class="widget-header widget-header-small">
+
+                    <div class="widget-header" style="border-bottom: 1px solid #eee;">
+
+                        <h4 class="widget-title lighter">{{ autor.nombre }} {{ autor.apellidos }}</h4>
+
+                        <div class="widget-toolbar no-border" >
+
+
+                            <a href="{{ path('ponencias_eliminar_autor_estado', {'ponencias': ponencias.id, 'autor': autor.id}) }}"><i class="ace-icon fa fa-trash-o red bigger-130 middle"></i></a>
+
+                        </div>
+                    </div>
+
+                    <div class="widget-body" style="display: none;">
+                        <div class="widget-main padding-6 no-padding-left no-padding-right">
+                            <div class="col-sm-12">
+                                <div class="well well-lg">
+                                    <div class="profile-user-info profile-user-info-striped">
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name"> Nombre: </div>
+
+                                            <div class="profile-info-value">
+                                                <span>{{ autor.nombre }}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name"> Apellidos: </div>
+
+                                            <div class="profile-info-value">
+                                                <span>{{ autor.apellidos}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name"> Correo: </div>
+
+                                            <div class="profile-info-value">
+                                                <span>{{ autor.correo }}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name"> Pais: </div>
+
+                                            <div class="profile-info-value">
+                                                <span>{{ autor.pais.pais }}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name"> Tipo de Autor: </div>
+
+                                            <div class="profile-info-value">
+                                                <span>{{ autor.tipoAutor.tipoAutor }}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name"> Institución:  </div>
+
+                                            <div class="profile-info-value">
+                                                <span>{{ autor.institucion }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div><!-- /.col -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+    </div>
+
+    <div class="step-pane" data-step="3">
+        <div class="col-md-12 blog-tag-data  widget-container-col ">
+            <h3>Título: {{ ponencias.titulo }}</h3>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-inline blog-tags">
+                        <li>
+                            <i class="fa fa-tags"></i><b>Palabras Claves:</b>
+                            {% for palabras in ponencias.palabraClave %}
+                                <a href="#">
+                                    {{ palabras.palabraClave }} </a>
+                            {% endfor %}
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="news-item-page">
+                <h3>Resumen:</h3>
+                <hr>
+                <p>
+                    {{ ponencias.resumen }}
+                </p>
+            </div>
+            <hr>
+            <div class="media">
+                <h3>Autores:</h3>
+                <hr>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="ver-inline-menu tabbable margin-bottom-10">
+                        {% for autor in ponencias.autor %}
+                            {% if loop.index == 1 %}
+                                <li class="active">
+                                    <a data-toggle="tab" href="#tab_{{ loop.index }}">
+                                        <i class="ace-icon glyphicon glyphicon-user"></i> {{ autor.nombre }} {{ autor.apellidos }}  </a>
+                                <span class="after">
+                                </span>
+                                </li>
+                            {% elseif loop.index != 1 %}
+                                <li>
+                                    <a data-toggle="tab" href="#tab_{{ loop.index }}">
+                                        <i class="ace-icon glyphicon glyphicon-user"></i> {{ autor.nombre }} {{ autor.apellidos }} </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        {% for autor in ponencias.autor %}
+                            {% if loop.index == 1 %}
+                                <div id="tab_{{ loop.index }}" class="tab-pane active">
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ autor.nombre }} {{ autor.apellidos }}
+
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Nombre: </div>
+
+                                                <div class="profile-info-value">
+                                                    <span>{{ autor.nombre }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Apellidos: </div>
+
+                                                <div class="profile-info-value">
+                                                    <span>{{ autor.apellidos}}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Correo: </div>
+
+                                                <div class="profile-info-value">
+                                                    <span>{{ autor.correo }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Pais: </div>
+
+                                                <div class="profile-info-value">
+                                                    <span>{{ autor.pais.pais }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Tipo de Autor: </div>
+
+                                                <div class="profile-info-value">
+                                                    <span>{{ autor.tipoAutor.tipoAutor }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Institución:  </div>
+
+                                                <div class="profile-info-value">
+                                                    <span>{{ autor.institucion }}</span>
+                                                </div>
+                                            </div>
+                                    </div>
+
+
+                                </div>
+                            {% elseif loop.index != 1 %}
+                                <div id="tab_{{ loop.index }}" class="tab-pane">
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ autor.nombre }} {{ autor.apellidos }}
+
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Nombre: </div>
+
+                                                <div class="profile-info-value">
+                                                    <span>{{ autor.nombre }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Apellidos: </div>
+
+                                                <div class="profile-info-value">
+                                                    <span>{{ autor.apellidos}}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Correo: </div>
+
+                                                <div class="profile-info-value">
+                                                    <span>{{ autor.correo }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Pais: </div>
+
+                                                <div class="profile-info-value">
+                                                    <span>{{ autor.pais.pais }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Tipo de Autor: </div>
+
+                                                <div class="profile-info-value">
+                                                    <span>{{ autor.tipoAutor.tipoAutor }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Institución:  </div>
+
+                                                <div class="profile-info-value">
+                                                    <span>{{ autor.institucion }}</span>
+                                                </div>
+                                            </div>
+                                    </div>
+
+
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            <!--end media-->
+
+            <!--end media-->
+            <hr>
+        </div>
+
+
+
+    </div>
+    </div>
+    </div>
+
+    <hr/>
+    <div class="wizard-actions">
+        <button class="btn btn-prev">
+            <i class="ace-icon fa fa-arrow-left"></i>
+            Atras
+        </button>
+        <button class="btn btn-success btn-next" >
+            Siguiente
+            <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+        </button>
+    </div>
+    </div>
+    <!-- /.widget-main -->
+    </div>
+    <!-- /.widget-body -->
+    </div>
+
+
+    <!-- PAGE CONTENT ENDS -->
+    </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    </div>
+
+
+{% endblock %}

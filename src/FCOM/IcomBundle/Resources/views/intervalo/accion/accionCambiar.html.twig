@@ -1,0 +1,283 @@
+{% extends 'plantillas/Backend/bakendPrincipal.html.twig' %}
+{% block stylepage %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/admin/pages/css/timeline-old.css') }}" rel="stylesheet"
+          type="text/css"/>
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/jquery-nestable/jquery.nestable.css') }}"/>
+{% endblock %}
+{% block pagecontent %}
+    {{ parent() }}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="list-group">
+                <h3 class="list-group-item active">{{ sala.dia.dia |date('d M') }} / {{ sala.nombre }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="list-group">
+                <h3 >Comision: {% for tema in tematica %} {{ tema.tematica }}{% endfor %}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="list-group">
+                <h3 >Coordinadores: {% for tema in tematica %} {% for coord in tema.coordinadores %}{{ coord.nombre }}{% endfor %}{% endfor %}</h3>
+            </div>
+        </div>
+    </div>
+    <hr>
+<form action="{{ path('intervalo_accion', {'intervalo' : intervalo, 'ponencias' : ponenciaCambiar, 'salas': sala.id}) }}" name="form" method="post">
+    <div class="row">
+        <div style="float: right;">
+            <div class="clearfix">
+                <button type="submit" class="btn btn-default">Cambiar</button>
+
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    {% for ponencia in  ponencias %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="timeline ">
+
+
+                    <li class="timeline-blue  timeline-noline ">
+                        <div class="timeline-time">
+								<span class="date">
+								{{ sala.dia.dia |date('d-M') }} </span>
+
+                            <h2>
+
+                                {{ ponencia.horaInicio|date('h:i') }} - {{ ponencia.horaFinal|date('h:i') }} </h2>
+
+
+                            <h1>
+                            </h1>
+
+                        </div>
+                        <div class="timeline-icon">
+                            {{ loop.index }}
+                        </div>
+                        <div class="timeline-body">
+                            <div class="row" style="margin: -35px 0 -15px 970px;">
+
+                            </div>
+                            <hr style="margin: 19px 0 4px 0;">
+
+                            <div class="portlet portlet-sortable light bg-inverse ">
+                                <div class="portlet-title">
+                                    <div class="caption col-md-0">
+                                        <i class="icon-docs font-blue-hoki" style="font-size: 25px;"></i>
+                                    </div>
+                                    <div class="caption col-md-10">
+                                        <p class="lead font-blue-madison">
+                                            {{ ponencia.titulo }}
+                                        </p>
+
+                                    </div>
+                                    <div class="tools">
+                                        <a href="" class="collapse">
+                                        </a>
+                                        <a href="#portlet-config" data-toggle="modal" class="config">
+                                        </a>
+                                        <a href="" class="reload">
+                                        </a>
+                                        <a href="" class="fullscreen">
+                                        </a>
+                                        {% if ponencia.id != ponenciaCambiar %}
+                                            <input type="checkbox" name="cambiar" value="{{ ponencia.id }}">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+
+                                    {% for autor in ponencia.autor %}
+                                        <div class="portlet">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="ace-icon glyphicon glyphicon-user" data-icon-show="fa-plus" data-icon-hide="fa-minus" style="font-size: 25px; color: #49586A; margin: 10px 5px -13px  0;"></i>
+                                                    <h4 class="widget-title lighter col-md-12" style="margin: 0 0 0 20px;">{{ autor.nombre }} {{ autor.apellidos }}</h4>
+                                                </div>
+                                                <div class="tools">
+                                                    <a href="javascript:;" class="expand">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body display-hide">
+                                                <div class="row">
+                                                    <div class="widget-main padding-6 no-padding-left no-padding-right">
+                                                        <div class="col-sm-12">
+                                                            <div class="well well-lg">
+                                                                <div class="profile-user-info profile-user-info-striped">
+                                                                    <div class="profile-info-row">
+                                                                        <address>
+                                                                            <strong>Nombre:</strong>
+                                                                            <div class="profile-info-value">
+                                                                                <span>{{ autor.nombre }}</span>
+                                                                            </div>
+                                                                        </address>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
+                                                                        <address>
+                                                                            <strong>Apellidos:</strong>
+                                                                            <div class="profile-info-value">
+                                                                                <span>{{ autor.apellidos}}</span>
+                                                                            </div>
+                                                                        </address>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
+                                                                        <address>
+                                                                            <strong>Correo:</strong>
+                                                                            <div class="profile-info-value">
+                                                                                <span>{{ autor.correo }}</span>
+                                                                            </div>
+                                                                        </address>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
+                                                                        <address>
+                                                                            <strong>Pais:</strong>
+                                                                            <div class="profile-info-value">
+                                                                                <span>{{ autor.pais.pais }}</span>
+                                                                            </div>
+                                                                        </address>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
+                                                                        <address>
+                                                                            <strong>Tipo de Autor:</strong>
+                                                                            <div class="profile-info-value">
+                                                                                <span>{{ autor.tipoAutor.tipoAutor }}</span>
+                                                                            </div>
+                                                                        </address>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
+                                                                        <address>
+                                                                            <strong>Institución:</strong>
+                                                                            <div class="profile-info-value">
+                                                                                <span>{{ autor.institucion }}</span>
+                                                                            </div>
+                                                                        </address>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div><!-- /.col -->
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% for debate in  debates %}
+            {% if debate.horaInicio == ponencia.horaFinal %}
+                {% if debate.intervalo.id == ponencia.intervalo.id %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="timeline ">
+
+
+                                <li class="timeline-blue  timeline-noline ">
+                                    <div class="timeline-time">
+								<span class="date">
+								{{ sala.dia.dia |date('d-M') }} </span>
+
+                                        <h2>
+
+                                            {{ debate.horaInicio|date('h:i') }}
+                                            - {{ debate.horaFinal|date('h:i') }} </h2>
+
+
+                                        <h1>
+                                        </h1>
+
+                                    </div>
+                                    <div class="timeline-icon">
+                                        <i class="fa fa-comments"></i>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <div class="note" style="border-right: 5px solid #eee;">
+                                            <h1 class="block" style="margin: 0 0 0 420px;">Debate</h1>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% for receso in  recesos %}
+            {% if receso.horaInicio == ponencia.horaFinal %}
+                {% if receso.intervalo.id == ponencia.intervalo.id %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="timeline ">
+
+
+                                <li class="timeline-blue  timeline-noline ">
+                                    <div class="timeline-time">
+								<span class="date">
+								{{ sala.dia.dia |date('d-M') }} </span>
+
+                                        <h2>
+
+                                            {{ receso.horaInicio|date('h:i') }}
+                                            - {{ receso.horaFinal|date('h:i') }} </h2>
+
+
+                                        <h1>
+                                        </h1>
+
+                                    </div>
+                                    <div class="timeline-icon">
+                                        <i class="fa fa-comments"></i>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <div class="note" style="border-right: 5px solid #eee;">
+                                            <h1 class="block" style="margin: 0 0 0 420px;">Debate</h1>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    </form>
+
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+
+{% endblock %}
+{% block scriptpage %}
+
+
+
+
+{% endblock %}
+

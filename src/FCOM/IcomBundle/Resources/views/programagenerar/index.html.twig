@@ -1,0 +1,188 @@
+{% extends 'plantillas/Backend/bakendPrincipal.html.twig' %}
+{% block contentTitle %}
+    Programa Generar del Evento
+
+{% endblock %}
+{% block pagecontent %}
+    {{ parent() }}
+
+    <form action="{{ path('salas_index') }}" class="form-horizontal" id="submit_form" method="POST">
+    <!--<div class="row">
+        <div style="float: right;">
+            <div class="clearfix">
+                <button type="submit" class="btn btn-default">Default</button>
+
+                <a href="http://localhost:8080/AgenteGateway/ServletGateWay?accion=IniciarSMA" class="btn btn-primary">Actualizar
+                    Programa</a>
+
+                <button type="button" class="btn btn-success">Success</button>
+
+                <button type="button" class="btn btn-info">Info</button>
+
+                <button type="button" class="btn btn-warning">Warning</button>
+
+                <button type="button" class="btn btn-danger">Danger</button>
+
+                <button type="button" class="btn btn-link">Link</button>
+            </div>
+        </div>
+    </div>-->
+    <hr>
+    <div class="portlet-title" id="form_wizard_1" style="margin: 40px 0 0 0;">
+
+    <div class="portlet-body form">
+
+    <div class="form-wizard">
+    <div class="form-body">
+    <ul class="nav nav-pills nav-justified steps">
+        {% for dias in dia %}
+            <li>
+                <a href="#tab{{ dias.id }}" data-toggle="tab" class="step">
+
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="tab-content">
+        {% for dias in dia %}
+
+            <div class="tab-pane active" id="tab{{ dias.id }}">
+                <div class="">
+                    <div class="row">
+                        <div class="col-md-offset-5 col-md-2">
+                            <div class="profile-sidebar">
+                                <!-- PORTLET MAIN -->
+                                <div class="portlet light profile-sidebar-portlet" style="margin: -76px  0 0 0;">
+
+                                    <!-- SIDEBAR USERPIC -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- BEGIN Portlet PORTLET-->
+
+                                            <i class="icon-calendar" style="font-size: 60px;"></i>
+
+                                            <div>
+                                                <strong>
+                                                    <h1 style="float: left; position: absolute; margin: 0 0 0 -21px">{{ dias.dia|date('d') }}</h1>
+                                                </strong>
+                                                <strong><h1 style="padding: 0 0 0 22px;"> {{ dias.dia|date('M') }}</h1>
+                                                </strong>
+                                            </div>
+
+                                            <!-- END Portlet PORTLET-->
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-10" style="margin: -46px 0 0 -75px;">
+                                            <button class="btn btn-circle btn-icon-only btn-default button-previous"
+                                                    type="button" style="margin: 0 0 0 0; position: absolute;"><i
+                                                        class="fa fa-angle-left" style="font-size: 24px;"></i></button>
+                                            <button class="btn btn-circle btn-icon-only btn-default button-next"
+                                                    type="button" style="margin: -2px 0 0 179px;"><i
+                                                        class="fa fa-angle-right" style="font-size: 24px;"></i></button>
+                                        </div>
+                                    </div>
+                                    <!-- END SIDEBAR USERPIC -->
+
+                                    <!-- SIDEBAR BUTTONS -->
+                                    <div class="profile-userbuttons">
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-4" style="text-align: center; margin: 0 0 0 -58px;">
+                            <h3 >HORA</h3>
+                        </div>
+                        <div class="col-md-4" style="text-align: center; margin: 0 0 0 4px;">
+                            <h3 >ACTIVIDAD</h3>
+                        </div>
+                        <div class="col-md-4" style="text-align: center; margin: 0 0 0 4px;">
+                            <h3 >LUGAR</h3>
+                        </div>
+                    </div>
+                    <hr>
+                    {% for programa in programaGenerar %}
+                        {% if dias.id == programa.dia.id %}
+                            <div class="row">
+
+
+
+                                <div class="col-md-4" style="text-align: center; margin: 0 0 0 -58px;">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <p class="lead">
+
+                                                {{ programa.horaInicio }}  -  {{ programa.horaFinal  }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-4" style="text-align: center; margin: 0 0 0 4px;">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <p class="lead">
+                                                {{ programa.actividad }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="text-align: center; margin: 0 0 0 4px;">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <p class="lead">
+                                                {{ programa.lugar }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <hr>
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                    <!--/row-->
+
+                    <!--/row-->
+
+                </div>
+
+
+
+
+
+
+
+
+            </div>
+
+
+        {% endfor %}
+    </div>
+    </div>
+
+    </div>
+    </form>
+    </div>
+    </div>
+
+
+
+
+
+{% endblock %}

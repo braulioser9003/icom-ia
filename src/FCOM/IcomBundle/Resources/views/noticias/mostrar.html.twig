@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Noticia</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ noticia.id }}</td>
+            </tr>
+            <tr>
+                <th>Titulo</th>
+                <td>{{ noticia.titulo }}</td>
+            </tr>
+            <tr>
+                <th>Resumen</th>
+                <td>{{ noticia.resumen }}</td>
+            </tr>
+            <tr>
+                <th>Contenido</th>
+                <td>{{ noticia.contenido|raw }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('noticias_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('noticias_editar', { 'id': noticia.id }) }}">Edit</a>
+        </li>
+
+    </ul>
+{% endblock %}

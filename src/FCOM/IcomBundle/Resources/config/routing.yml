@@ -1,0 +1,65 @@
+fcom_icom_noticias:
+    resource: "@FCOMIcomBundle/Resources/config/routing/noticias.yml"
+    prefix:   /noticias
+fcom_icom_ponencias:
+    resource: "@FCOMIcomBundle/Resources/config/routing/ponencias.yml"
+    prefix:   /ponencias
+fcom_icom_autor:
+    resource: "@FCOMIcomBundle/Resources/config/routing/autor.yml"
+    prefix:   /autor
+fcom_icom_usuario:
+    resource: "@FCOMIcomBundle/Resources/config/routing/usuario.yml"
+    prefix:   /usuario
+fcom_icom_salas:
+    resource: "@FCOMIcomBundle/Resources/config/routing/salas.yml"
+    prefix:   /salas
+fcom_icom_intervalo:
+    resource: "@FCOMIcomBundle/Resources/config/routing/intervalo.yml"
+    prefix:   /intervalo
+fcom_icom_duracion:
+    resource: "@FCOMIcomBundle/Resources/config/routing/duracion.yml"
+    prefix:   /salas/duracion/
+fcom_icom_programagenerar:
+    resource: "@FCOMIcomBundle/Resources/config/routing/programagenerar.yml"
+    prefix:   /programaGenerar
+fcom_icom_coordinadores:
+    resource: "@FCOMIcomBundle/Resources/config/routing/coordinadores.yml"
+    prefix:   /coordinadores
+fcom_icom_datosGenerales:
+    resource: "@FCOMIcomBundle/Resources/config/routing/datosgenerales.yml"
+    prefix:   /datosGenerales
+fcom_icom_index:
+    path:     /index
+    defaults: { _controller: FCOMIcomBundle:Principal:index }
+fcom_icom_homepage:
+    path:     /usuario/perfil
+    defaults: { _controller: FCOMIcomBundle:Usuario:home }
+fcom_icom_login:
+    path:     /login
+    defaults: { _controller: FCOMIcomBundle:Security:login }
+fcom_icom_login_check:
+    path:     /login_check
+    defaults: { _controller: FCOMIcomBundle:Security:loginCheck }
+fcom_icom_logout:
+    path:     /logout
+fcom_icom_table:
+    path:     /table
+    defaults: { _controller: FCOMIcomBundle:Principal:table }
+fcom_icom_document:
+    path:     /document
+    defaults: { _controller: FCOMIcomBundle:Document:upload }
+fcom_icom_wirzad:
+    path:     /wirzad
+    defaults: { _controller: FCOMIcomBundle:Principal:wirzad }
+fcom_icom_wirzad_metronic:
+    path:     /wirzadMetronic
+    defaults: { _controller: FCOMIcomBundle:Principal:wirzadMetronic }
+fcom_icom_notificacion:
+    path:     /notificacion/{id}/delete
+    defaults: { _controller: FCOMIcomBundle:Notificacion:eliminar }
+acme_privacy:
+    path: /privacy
+    defaults:
+        _controller: FCOMIcomBundle:Principal:header
+        template: plantillas/Backend/backendHeaded.html.twig
+

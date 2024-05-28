@@ -1,0 +1,154 @@
+{% extends 'plantillas/principal.html.twig' %}
+
+{% block contenido %}
+    {{ parent() }}
+    {{ include('plantillas/formularios.html.twig') }}
+    {{ include('plantillas/formularios-wizard.html.twig') }}
+
+    <div class="page-content">
+
+
+
+
+    <div class="widget-body">
+    <div class="widget-main">
+    <div id="fuelux-wizard-container">
+
+    <hr/>
+
+    <div class="step-content pos-rel">
+
+        <h3 class="lighter block green">Editar Ponencia:</h3>
+
+        <form novalidate="novalidate" role="form" method="post" class="form-horizontal" action="{{ path('ponencias_editar', { 'id': ponencias.id}) }}">
+
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                       for="email">{{ form_label(form.titulo) }}</label>
+
+                <div class="col-xs-12 col-sm-9">
+                    <div class="clearfix">
+                        {{ form_widget(form.titulo, {'attr' : {'class' : 'col-xs-12 col-sm-6', 'id' : 'titulo', 'name' : 'titulo' }}
+                        ) }}
+                        <span class="text-danger" style="float: left;">{{ form_errors(form.titulo) }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-2"></div>
+
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                       for="password">{{ form_label(form.resumen) }}</label>
+
+                <div class="col-xs-12 col-sm-9">
+                    <div class="clearfix">
+                        {{ form_widget(form.resumen, {'attr' : {'class' : 'col-xs-12 col-sm-6', 'id' : 'resumen', 'name' : 'resumen' }}
+                        ) }}
+                        <span class="text-danger" style="float: left;">{{ form_errors(form.resumen) }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-2"></div>
+
+            <div class="form-group">
+                <label class="control-label col-xs-5 col-sm-3 no-padding-right"
+                       for="password2">{{ form_label(form.palabraClave) }}</label>
+
+                <div class="col-xs-12 col-sm-2">
+                    <div class="clearfix">
+                        <ul class="palabraClave" data-prototype="{{ form_widget(form.palabraClave.vars.prototype)|e }}" style="list-style: none;" >
+                            <li style="float: left;">{{ form_widget(form.palabraClave, {'attr' : {'class' : 'col-xs-12 col-sm-6', 'id' : 'resumen', 'name' : 'resumen' }}
+                                ) }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group" style="margin-top: 5%;">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                       for="name">{{ form_label(form.tematica) }}</label>
+
+                <div class="col-xs-12 col-sm-9">
+                    <div class="clearfix">
+                        {{ form_widget(form.tematica, {'attr' : {'class' : 'col-xs-7', 'id' : 'tematica', 'name' : 'tematica'}}
+                        ) }}
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: 5%; display: none;">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                       for="name"></label>
+
+                <div class="col-xs-12 col-sm-9">
+                    <div class="clearfix">
+                        {{ form_widget(form.estado, {'attr' : {'class' : 'col-xs-7', 'id' : 'tematica', 'name' : 'tematica'}}
+                        ) }}
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: 5%; ">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                       for="name">{{ form_label(form.modalidad) }}</label>
+
+                <div class="col-xs-12 col-sm-9">
+                    <div class="clearfix">
+                        {{ form_widget(form.modalidad, {'attr' : {'class' : 'col-xs-7', 'id' : 'modalidad', 'name' : 'modalidad'}}
+                        ) }}
+
+                    </div>
+                </div>
+            </div>
+            <div class="hr hr-dotted"></div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right"
+                       for="name"></label>
+
+                <div class="col-xs-12 col-sm-9">
+                    <div class="clearfix">
+                        {{ form_widget(form.save, {'label' : 'Guardar', 'attr' : {'class' : 'btn btn-info' }}) }}
+
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <!-- /.widget-main -->
+    </div>
+    <!-- /.widget-body -->
+    </div>
+
+
+    <!-- PAGE CONTENT ENDS -->
+    </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    </div>
+
+
+{% endblock %}

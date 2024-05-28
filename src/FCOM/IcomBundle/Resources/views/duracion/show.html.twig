@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Duracion</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ duracion.id }}</td>
+            </tr>
+            <tr>
+                <th>Expponencias</th>
+                <td>{{ duracion.expPonencias }}</td>
+            </tr>
+            <tr>
+                <th>Pregponencias</th>
+                <td>{{ duracion.pregPonencias }}</td>
+            </tr>
+            <tr>
+                <th>Debate</th>
+                <td>{{ duracion.debate }}</td>
+            </tr>
+            <tr>
+                <th>Receso</th>
+                <td>{{ duracion.receso }}</td>
+            </tr>
+            <tr>
+                <th>Intermedio</th>
+                <td>{{ duracion.intermedio }}</td>
+            </tr>
+            <tr>
+                <th>Cantposter</th>
+                <td>{{ duracion.cantPoster }}</td>
+            </tr>
+            <tr>
+                <th>Horacambio</th>
+                <td>{% if duracion.horaCambio %}{{ duracion.horaCambio|date('H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('duracion_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('duracion_edit', { 'id': duracion.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

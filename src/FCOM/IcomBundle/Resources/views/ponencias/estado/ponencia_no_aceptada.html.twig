@@ -1,0 +1,354 @@
+{% extends 'plantillas/principal.html.twig' %}
+
+{% block contenido %}
+    {{ parent() }}
+    {{ include('plantillas/formularios.html.twig') }}
+    {{ include('plantillas/formularios-wizard.html.twig') }}
+
+    <div class="page-content">
+
+
+    <!-- /.page-header -->
+
+    <div class="row">
+    <div class="col-xs-12">
+    <!-- PAGE CONTENT BEGINS -->
+
+
+    <div class="hr hr-18 hr-double dotted"></div>
+
+    <div class="widget-box">
+
+    <div class="widget-body">
+    <div class="widget-main">
+    <div id="fuelux-wizard-container">
+    <div>
+        <ul class="steps">
+
+            <li data-step="1" >
+                <span class="step">4</span>
+                <span class="title">Subir Ponencia</span>
+            </li>
+            <li data-step="2" class="active">
+                <span class="step">5</span>
+                <span class="title">Ponencia no Aceptada</span>
+            </li>
+        </ul>
+    </div>
+
+    <hr/>
+
+    <div class="step-content pos-rel">
+
+
+
+
+
+        <div class="step-pane" data-step="1">
+
+            <div class="col-xs-12" style="margin: 0 0 0 20%;">
+                {% for flash_message in app.session.flashBag.get('validacion') %}
+                    <div class="alert alert-danger">
+                        <strong>Error!</strong> {{ flash_message }}.
+                    </div>
+                {% endfor %}
+                <div class="widget-box">
+                    <div class="widget-header">
+                        <h4 class="widget-title">Documento General </h4>
+                    </div>
+
+                    <div class="row">
+                        {% if ponencias.document == null %}
+                            <div class="col-md-2">
+                                <form  enctype="multipart/form-data" action="{{ path('ponencias_subir', {'ponencias': ponencias.id}) }}" method="POST"  novalidate="novalidate">
+                                    <div class="form-group">
+                                        <div class="col-xs-12">
+                                            <label class="ace-file-input"><input type="file" name="file" id="id-input-file-1" class="form-control" placeholder="Subir"
+                                                                                 height="50px" /></label>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-12">
+                                            <input type="submit" value="subir" class="btn btn-info">
+
+                                        </div>
+
+                                    </div>
+
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if ponencias.document != null %}
+                        <div class="row">
+                            <div class="col-md-7">
+                                <table role="presentation" class="table table-striped clearfix">
+                                    <tbody class="files">
+                                    <tr class="template-upload fade in" style="margin: 0 0 -5px 0;">
+
+                                        <td>
+                                            <img src="{{ asset('bundles/fcomicom/images/pdf.jpeg') }}" width="50px" height="50px">
+                                            <span class="preview"><canvas width="80" height="45"></canvas></span>
+                                        </td>
+                                        <td>
+                                            <p class="name">{{ ponencias.document.name}}</p>
+                                            <strong class="error text-danger label label-danger"></strong>
+                                        </td>
+                                        <td>
+                                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                                            </div>
+                                        </td>
+                                        <td>
+
+                                            <a class="btn red cancel" href="{{ path('ponencias_eliminar_documento', {'ponencias': ponencias.id}) }}">
+                                                <i class="fa fa-ban"></i>
+                                                <span>Eliminar</span>
+                                            </a>
+
+                                        </td>
+
+                                    </tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <ul>
+
+                                        <li>
+                                            Solo se puede subir archivos (<strong>PDF</strong>)).
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="step-pane" data-step="2">
+            <div class="col-md-12 blog-tag-data  widget-container-col ">
+                <h3>Título: {{ ponencias.titulo }}</h3>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-inline blog-tags">
+                            <li>
+                                <i class="fa fa-tags"></i><b>Palabras Claves:</b>
+                                {% for palabras in ponencias.palabraClave %}
+                                    <a href="#">
+                                        {{ palabras.palabraClave }} </a>
+                                {% endfor %}
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <div class="news-item-page">
+                    <h3>Resumen:</h3>
+                    <hr>
+                    <p>
+                        {{ ponencias.resumen }}
+                    </p>
+                </div>
+                <hr>
+                <div class="media">
+                    <h3>Autores:</h3>
+                    <hr>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <ul class="ver-inline-menu tabbable margin-bottom-10">
+                            {% for autor in ponencias.autor %}
+                                {% if loop.index == 1 %}
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#tab_{{ loop.index }}">
+                                            <i class="ace-icon glyphicon glyphicon-user"></i> {{ autor.nombre }} {{ autor.apellidos }}  </a>
+                                <span class="after">
+                                </span>
+                                    </li>
+                                {% elseif loop.index != 1 %}
+                                    <li>
+                                        <a data-toggle="tab" href="#tab_{{ loop.index }}">
+                                            <i class="ace-icon glyphicon glyphicon-user"></i> {{ autor.nombre }} {{ autor.apellidos }} </a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            {% for autor in ponencias.autor %}
+                                {% if loop.index == 1 %}
+                                    <div id="tab_{{ loop.index }}" class="tab-pane active">
+                                        <div class="media-body">
+                                            <h4 class="media-heading">{{ autor.nombre }} {{ autor.apellidos }}
+
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Nombre: </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span>{{ autor.nombre }}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Apellidos: </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span>{{ autor.apellidos}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Correo: </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span>{{ autor.correo }}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Pais: </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span>{{ autor.pais.pais }}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Tipo de Autor: </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span>{{ autor.tipoAutor.tipoAutor }}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Institución:  </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span>{{ autor.institucion }}</span>
+                                                    </div>
+                                                </div>
+                                        </div>
+
+
+                                    </div>
+                                {% elseif loop.index != 1 %}
+                                    <div id="tab_{{ loop.index }}" class="tab-pane">
+                                        <div class="media-body">
+                                            <h4 class="media-heading">{{ autor.nombre }} {{ autor.apellidos }}
+
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Nombre: </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span>{{ autor.nombre }}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Apellidos: </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span>{{ autor.apellidos}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Correo: </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span>{{ autor.correo }}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Pais: </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span>{{ autor.pais.pais }}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Tipo de Autor: </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span>{{ autor.tipoAutor.tipoAutor }}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Institución:  </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span>{{ autor.institucion }}</span>
+                                                    </div>
+                                                </div>
+                                        </div>
+
+
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+                <!--end media-->
+
+                <!--end media-->
+                <hr>
+            </div>
+
+
+
+        </div>
+    </div>
+    </div>
+
+    <hr/>
+    <div class="wizard-actions">
+        <button class="btn btn-prev">
+            <i class="ace-icon fa fa-arrow-left"></i>
+            Atras
+        </button>
+        <button type="submit" class="btn btn-success btn-next" data-last="Guardar">
+            Siguiente
+            <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+        </button>
+    </div>
+    </div>
+    <!-- /.widget-main -->
+    </div>
+    <!-- /.widget-body -->
+    </div>
+
+
+    <!-- PAGE CONTENT ENDS -->
+    </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+usuario_index:
+    path:     /
+    defaults: { _controller: "FCOMIcomBundle:Usuario:index" }
+    methods:  GET
+
+usuario_show:
+    path:     /{id}/show
+    defaults: { _controller: "FCOMIcomBundle:Usuario:show" }
+    methods:  GET
+
+usuario_new:
+    path:     /new
+    defaults: { _controller: "FCOMIcomBundle:Usuario:new" }
+    methods:  [GET, POST]
+
+usuario_edit:
+    path:     /{usuario}/edit
+    defaults: { _controller: "FCOMIcomBundle:Usuario:edit" }
+    methods:  [GET, POST]
+
+usuario_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FCOMIcomBundle:Usuario:delete" }
+    methods:  [GET, POST]
+usuario_filtrar:
+    path:     /filtrar
+    defaults: { _controller: "FCOMIcomBundle:Usuario:filtrar" }
+    methods:  [GET, POST]
+usuario_cuenta:
+    path:     /cuenta
+    defaults: { _controller: "FCOMIcomBundle:Usuario:cuenta" }
+    methods:  [GET, POST]
+usuario_cambiar_contraseña:
+    path:     /cambiarContraseña
+    defaults: { _controller: "FCOMIcomBundle:Usuario:cambiarContraseña" }
+    methods:  [GET, POST]

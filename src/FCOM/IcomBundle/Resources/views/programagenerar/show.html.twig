@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Programagenerar</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ programaGenerar.id }}</td>
+            </tr>
+            <tr>
+                <th>Horainicio</th>
+                <td>{{ programaGenerar.horaInicio }}</td>
+            </tr>
+            <tr>
+                <th>Horafinal</th>
+                <td>{{ programaGenerar.horaFinal }}</td>
+            </tr>
+            <tr>
+                <th>Actividad</th>
+                <td>{{ programaGenerar.actividad }}</td>
+            </tr>
+            <tr>
+                <th>Lugar</th>
+                <td>{{ programaGenerar.lugar }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('programagenerar_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('programagenerar_edit', { 'id': programaGenerar.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

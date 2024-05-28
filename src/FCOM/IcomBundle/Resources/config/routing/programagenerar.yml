@@ -1,0 +1,24 @@
+programagenerar_index:
+    path:     /
+    defaults: { _controller: "FCOMIcomBundle:ProgramaGenerar:index" }
+    methods:  GET
+
+programagenerar_show:
+    path:     /{id}/show
+    defaults: { _controller: "FCOMIcomBundle:ProgramaGenerar:show" }
+    methods:  GET
+
+programagenerar_new:
+    path:     /new
+    defaults: { _controller: "FCOMIcomBundle:ProgramaGenerar:new" }
+    methods:  [GET, POST]
+
+programagenerar_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FCOMIcomBundle:ProgramaGenerar:edit" }
+    methods:  [GET, POST]
+
+programagenerar_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FCOMIcomBundle:ProgramaGenerar:delete" }
+    methods:  [GET, POST]

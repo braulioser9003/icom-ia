@@ -1,0 +1,45 @@
+salas_index:
+    path:     /
+    defaults: { _controller: "FCOMIcomBundle:Salas:index" }
+    methods:  [POST, GET]
+
+salas_mostrar:
+    path:     /{id}/mostrar
+    defaults: { _controller: "FCOMIcomBundle:Salas:mostrar" }
+    methods:  GET
+
+salas_nueva:
+    path:     /nueva
+    defaults: { _controller: "FCOMIcomBundle:Salas:nueva" }
+    methods:  [GET, POST]
+
+salas_editar:
+    path:     /{id}/editar
+    defaults: { _controller: "FCOMIcomBundle:Salas:editar" }
+    methods:  [GET, POST]
+
+salas_eliminar:
+    path:     /{id}/eliminar
+    defaults: { _controller: "FCOMIcomBundle:Salas:eliminar" }
+    methods:  [GET, POST]
+
+salas_programa_ponencias:
+    path:     /programa/ponencias
+    defaults: { _controller: "FCOMIcomBundle:Salas:programaPonencias" }
+    methods:  [GET, POST]
+salas_programa_poster:
+    path:     /programa/poster
+    defaults: { _controller: "FCOMIcomBundle:Salas:programaPoster" }
+    methods:  [GET, POST]
+salas_crearPrograma:
+    path:     /programa/crear
+    defaults: { _controller: "FCOMIcomBundle:Salas:crearPrograma" }
+    methods:  [GET, POST]
+salas_eliminarIntervalo:
+    path:     /programa/{intervalo}/{salas}/eliminarIntervalo
+    defaults: { _controller: "FCOMIcomBundle:Salas:eliminarIntervalo" }
+    methods:  [GET, POST]
+salas_actualizar:
+    path:     /salas/{salas}/programa/actualizar
+    defaults: { _controller: "FCOMIcomBundle:Salas:actualizar" }
+    methods:  [GET, POST]

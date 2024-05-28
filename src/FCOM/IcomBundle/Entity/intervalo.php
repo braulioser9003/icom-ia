@@ -1,0 +1,310 @@
+<?php
+
+namespace FCOM\IcomBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * intervalo
+ *
+ * @ORM\Table(name="intervalo")
+ * @ORM\Entity(repositoryClass="FCOM\IcomBundle\Repository\intervaloRepository")
+ */
+class intervalo
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="cant_ponencias", type="integer")
+     */
+    private $cantPonencias;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Ponencias", mappedBy="intervalo")
+     */
+    private $ponencias;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="posicion", type="integer")
+     */
+    private $posicion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="horaInicio", type="time")
+     */
+    private $horaInicio;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="horaFinal", type="time")
+     */
+    private $horaFinal;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Debate", mappedBy="intervalo")
+     */
+    private $debate;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Receso", mappedBy="intervalo")
+     */
+    private $receso;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="porciento", type="integer")
+     */
+    private $porciento;
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ponencias = new ArrayCollection();
+        $this->debate = new ArrayCollection();
+        $this->receso = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set cantPonencias
+     *
+     * @param integer $cantPonencias
+     * @return intervalo
+     */
+    public function setCantPonencias($cantPonencias)
+    {
+        $this->cantPonencias = $cantPonencias;
+
+        return $this;
+    }
+
+    /**
+     * Get cantPonencias
+     *
+     * @return integer 
+     */
+    public function getCantPonencias()
+    {
+        return $this->cantPonencias;
+    }
+
+    /**
+     * Set posicion
+     *
+     * @param integer $posicion
+     * @return intervalo
+     */
+    public function setPosicion($posicion)
+    {
+        $this->posicion = $posicion;
+
+        return $this;
+    }
+
+    /**
+     * Get posicion
+     *
+     * @return integer 
+     */
+    public function getPosicion()
+    {
+        return $this->posicion;
+    }
+
+    /**
+     * Set horaInicio
+     *
+     * @param \DateTime $horaInicio
+     * @return intervalo
+     */
+    public function setHoraInicio($horaInicio)
+    {
+        $this->horaInicio = $horaInicio;
+
+        return $this;
+    }
+
+    /**
+     * Get horaInicio
+     *
+     * @return \DateTime 
+     */
+    public function getHoraInicio()
+    {
+        return $this->horaInicio;
+    }
+
+    /**
+     * Set horaFinal
+     *
+     * @param \DateTime $horaFinal
+     * @return intervalo
+     */
+    public function setHoraFinal($horaFinal)
+    {
+        $this->horaFinal = $horaFinal;
+
+        return $this;
+    }
+
+    /**
+     * Get horaFinal
+     *
+     * @return \DateTime 
+     */
+    public function getHoraFinal()
+    {
+        return $this->horaFinal;
+    }
+
+    /**
+     * Add ponencias
+     *
+     * @param \FCOM\IcomBundle\Entity\Ponencias $ponencias
+     * @return intervalo
+     */
+    public function addPonencia(\FCOM\IcomBundle\Entity\Ponencias $ponencias)
+    {
+        $this->ponencias[] = $ponencias;
+
+        return $this;
+    }
+
+    /**
+     * Remove ponencias
+     *
+     * @param \FCOM\IcomBundle\Entity\Ponencias $ponencias
+     */
+    public function removePonencia(\FCOM\IcomBundle\Entity\Ponencias $ponencias)
+    {
+        $this->ponencias->removeElement($ponencias);
+    }
+
+    /**
+     * Get ponencias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPonencias()
+    {
+        return $this->ponencias;
+    }
+
+    /**
+     * Add debate
+     *
+     * @param \FCOM\IcomBundle\Entity\Debate $debate
+     * @return intervalo
+     */
+    public function addDebate(\FCOM\IcomBundle\Entity\Debate $debate)
+    {
+        $this->debate[] = $debate;
+
+        return $this;
+    }
+
+    /**
+     * Remove debate
+     *
+     * @param \FCOM\IcomBundle\Entity\Debate $debate
+     */
+    public function removeDebate(\FCOM\IcomBundle\Entity\Debate $debate)
+    {
+        $this->debate->removeElement($debate);
+    }
+
+    /**
+     * Get debate
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDebate()
+    {
+        return $this->debate;
+    }
+
+    /**
+     * Add receso
+     *
+     * @param \FCOM\IcomBundle\Entity\Receso $receso
+     * @return intervalo
+     */
+    public function addReceso(\FCOM\IcomBundle\Entity\Receso $receso)
+    {
+        $this->receso[] = $receso;
+
+        return $this;
+    }
+
+    /**
+     * Remove receso
+     *
+     * @param \FCOM\IcomBundle\Entity\Receso $receso
+     */
+    public function removeReceso(\FCOM\IcomBundle\Entity\Receso $receso)
+    {
+        $this->receso->removeElement($receso);
+    }
+
+    /**
+     * Get receso
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReceso()
+    {
+        return $this->receso;
+    }
+
+    /**
+     * Set porciento
+     *
+     * @param integer $porciento
+     * @return intervalo
+     */
+    public function setPorciento($porciento)
+    {
+        $this->porciento = $porciento;
+
+        return $this;
+    }
+
+    /**
+     * Get porciento
+     *
+     * @return integer 
+     */
+    public function getPorciento()
+    {
+        return $this->porciento;
+    }
+}

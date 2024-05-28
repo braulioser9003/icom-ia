@@ -1,0 +1,65 @@
+ # To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+
+    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        our_db_provider:
+            entity:
+                class: FCOMIcomBundle:Usuario
+                property: username
+
+
+    firewalls:
+        default:
+            anonymous: ~
+            http_basic: ~
+            form_login:
+                login_path: /login
+                check_path: /login_check
+                username_parameter: _username
+                password_parameter: _password
+            logout:
+                path: /logout
+                target: /login
+
+
+
+
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
+    encoders:
+        FCOM\IcomBundle\Entity\Usuario:
+            algorithm: bcrypt
+            cost: 12
+
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuario/new, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuario/perfil, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/usuario/cuenta, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/usuario/cambiarContraseña, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/usuario/, roles: ROLE_ADMIN }
+        - { path: ^/ponencias, roles: [ROLE_ADMIN, ROLE_CODGENERAR, ROLE_USUARIO, ROLE_EDITOR ]  }
+        - { path: ^/salas, roles: [ROLE_ADMIN, ROLE_CODGENERAR] }
+        - { path: ^/salas/programa, roles: [ROLE_ADMIN, ROLE_CODGENERAR] }
+        - { path: ^/usuario/, roles: [ROLE_ADMIN] }
+        - { path: ^/ponencias/estado, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/coordinadores/, roles: [ROLE_ADMIN, ROLE_CODGENERAR] }
+        - { path: ^/index/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^ponencias/estado/, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^noticias, roles: [ROLE_ADMIN, ROLE_CODGENERAR, ROLE_EDITOR] }

@@ -1,0 +1,61 @@
+ponencias_index:
+    path:     /
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:index" }
+    methods:  [GET, POST]
+
+ponencias_mostrar:
+    path:     /{id}/mostrar
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:mostrar" }
+    methods:  GET
+
+ponencias_nueva:
+    path:     /nueva
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:nueva" }
+    methods:  [GET, POST]
+
+ponencias_editar:
+    path:     /{id}/editar
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:editar" }
+    methods:  [GET, POST, DELETE]
+
+ponencias_eliminar:
+    path:     /{id}/eliminar
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:eliminar" }
+    methods:  [GET, POST]
+
+ponencias_cambiarEstado:
+    path:     /{id}/cambiar
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:cambiarEstado" }
+    methods:  [GET, POST]
+ponencias_autores:
+    path:     /{id}/autores
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:autores" }
+    methods:  [GET, POST]
+ponencias_eliminar_autor:
+    path:     /eliminarautor/{ponencias}/{autor}
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:eliminarautor" }
+    methods:  [GET, GET]
+ponencias_estado:
+    path:     /estado/{id}
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:estado" }
+    methods:  [GET, POST]
+ponencias_eliminar_autor_estado:
+    path:     /estado/eliminarautor/{ponencias}/{autor}
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:eliminarAutorEstado" }
+    methods:  [GET, GET]
+ponencias_document_general:
+    path:     /ponencias/documentoGeneral/{id}
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:document_general" }
+    methods:  [GET, POST]
+ponencias_filtrar:
+    path:     /filtrar
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:filtrar" }
+    methods:  [GET, POST]
+ponencias_subir:
+    path:     /{ponencias}/subir
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:subirPonencia" }
+    methods:  [GET, POST]
+ponencias_eliminar_documento:
+    path:     /{ponencias}/documento/eliminar
+    defaults: { _controller: "FCOMIcomBundle:Ponencias:documentoEliminar" }
+    methods:  [GET, POST]

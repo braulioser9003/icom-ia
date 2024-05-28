@@ -1,0 +1,178 @@
+{% extends 'plantillas/principal.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Fonts START -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all"
+          rel="stylesheet" type="text/css">
+    <!-- Fonts END -->
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap/css/bootstrap.min.css') }}"
+          rel="stylesheet">
+
+
+
+    <!-- Page level plugin styles START -->
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/fancybox/source/jquery.fancybox.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/uniform/css/uniform.default.css') }}"
+          rel="stylesheet" type="text/css">
+    <!-- Page level plugin styles END -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/select2/select2.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datepicker/css/datepicker.css') }}"/>
+
+
+    <!-- Theme styles START -->
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/global/css/components.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/frontend/layout/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/frontend/layout/css/style-responsive.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/frontend/layout/css/themes/blue.css') }}" rel="stylesheet"
+          id="style-color">
+
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/frontend/layout/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/icheck/skins/all.css') }}" rel="stylesheet"/>
+    <!-- Theme styles END -->
+{% endblock %}
+
+{% block contenido %}
+
+
+    <div class="container" id="content-contain">
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+            <!-- BEGIN SIDEBAR -->
+
+            <!-- END SIDEBAR -->
+
+            <!-- BEGIN CONTENT -->
+            <div class="main">
+                <div class="container">
+
+                    <div class="row margin-bottom-40">
+                        <!-- BEGIN SIDEBAR -->
+
+                        <!-- END SIDEBAR -->
+
+                        <!-- BEGIN CONTENT -->
+                        <div class="col-md-11 col-sm-11">
+                            <div class="content-form-page">
+                                <div class="row">
+                                    <div class="col-md-7 col-sm-7">
+                                        {{ form_start(form, {'attr' : {'enctype' : 'multipart/form-data','novalidate': 'novalidate', 'role' : 'form', 'class' : 'form-horizontal' }}
+                                        ) }}
+
+                                            <fieldset>
+                                                <legend>Datos Personales</legend>
+
+                                                <div class="form-group ">
+                                                    <label for="firstname" class="col-lg-4 control-label">Usuario <span class="require">*</span></label>
+                                                    <div class="col-lg-8 has-error" >
+                                                        {{ form_widget(form.username, {'attr' : {'class' : 'form-control', 'id' : 'username', 'name' : 'username' }}
+                                                        ) }}
+                                                        <span  class="help-block">{{ form_errors(form.username) }} .</span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="lastname" class="col-lg-4 control-label">Nombre <span class="require">*</span></label>
+                                                    <div class="col-lg-8 has-error">
+                                                        {{ form_widget(form.nombre, {'attr' : {'class' : 'form-control', 'id' : 'nombre', 'name' : 'nombre' }}
+                                                        ) }}
+                                                        <span  class="help-block">{{ form_errors(form.nombre) }} .</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email" class="col-lg-4 control-label">Apellidos <span class="require">*</span></label>
+                                                    <div class="col-lg-8 has-error">
+                                                        {{ form_widget(form.apellidos, {'attr' : {'class' : 'form-control', 'id' : 'apellidos', 'name' : 'apellidos' }}
+                                                        ) }}
+                                                        <span  class="help-block">{{ form_errors(form.apellidos) }} .</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email" class="col-lg-4 control-label">Correo <span class="require">*</span></label>
+                                                    <div class="col-lg-8 has-error">
+                                                        {{ form_widget(form.email, {'attr' : {'class' : 'form-control', 'id' : 'email', 'name' : 'email' }}
+                                                        ) }}
+                                                        <span  class="help-block">{{ form_errors(form.email) }} .</span>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend>Tu contraseña</legend>
+                                                <div class="form-group">
+                                                    <label for="password" class="col-lg-4 control-label">Contraseña<span class="require">*</span></label>
+
+                                                    <div class="col-lg-8 has-error">
+                                                        {{ form_widget(form.password.first, {'attr' : {'class' : 'form-control', 'id' : 'password', 'name' : 'password' }}
+                                                        ) }}
+                                                        <span  class="help-block">{{ form_errors(form.password.first) }} .</span>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="password" class="col-lg-4 control-label">Confirmar contraseña<span class="require">*</span></label>
+                                                    <div class="col-lg-8 has-error">
+                                                        {{ form_widget(form.password.second, {'attr' : {'class' : 'form-control', 'id' : 'password', 'name' : 'password' }}
+                                                        ) }}
+                                                        <span  class="help-block">{{ form_errors(form.password.second) }} .</span>
+                                                    </div>
+                                                </div>
+
+
+                                            </fieldset>
+                                            <div class="row">
+                                                <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
+                                                    <input type="hidden" name="role" value="ROLE_USUARIO">
+                                                    <button type="submit" class="btn btn-primary">Crear Cuenta</button>
+                                                    <button type="button" class="btn btn-default">Cancel</button>
+                                                </div>
+                                            </div>
+                                        {{ form_end(form) }}
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 pull-right">
+                                        <div class="form-info">
+                                            <h2><em>Importante</em></h2>
+                                            <p> Todos los campos para el registro de usuario son obligatorio.</p>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END CONTENT -->
+                    </div>
+                    <!-- END SIDEBAR & CONTENT -->
+                </div>
+            </div>
+            <!-- END CONTENT -->
+
+            <!-- END SIDEBAR & CONTENT -->
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        jQuery(function($) {
+            $('#fcom_icombundle_autor_perteneceInstitucion').click(function(){
+                if(this.checked) {
+                    $('#institucion').show();
+                    $('#institucion').removeClass('hide');
+                }
+                else {
+                    $('#institucion').hide();
+                    $('#institucion').addClass('hide');
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+
+
+
+

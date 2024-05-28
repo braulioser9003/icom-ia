@@ -1,0 +1,24 @@
+datosgenerales_index:
+    path:     /
+    defaults: { _controller: "FCOMIcomBundle:DatosGenerales:index" }
+    methods:  [GET, POST]
+
+datosgenerales_show:
+    path:     /{id}/show
+    defaults: { _controller: "FCOMIcomBundle:DatosGenerales:show" }
+    methods:  GET
+
+datosgenerales_new:
+    path:     /new
+    defaults: { _controller: "FCOMIcomBundle:DatosGenerales:new" }
+    methods:  [GET, POST]
+
+datosgenerales_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FCOMIcomBundle:DatosGenerales:edit" }
+    methods:  [GET, POST]
+
+datosgenerales_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FCOMIcomBundle:DatosGenerales:delete" }
+    methods:  DELETE

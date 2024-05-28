@@ -1,0 +1,24 @@
+coordinadores_index:
+    path:     /
+    defaults: { _controller: "FCOMIcomBundle:Coordinadores:index" }
+    methods:  [GET, POST]
+
+coordinadores_show:
+    path:     /{id}/show
+    defaults: { _controller: "FCOMIcomBundle:Coordinadores:show" }
+    methods:  GET
+
+coordinadores_new:
+    path:     /new
+    defaults: { _controller: "FCOMIcomBundle:Coordinadores:new" }
+    methods:  [GET, POST]
+
+coordinadores_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FCOMIcomBundle:Coordinadores:edit" }
+    methods:  [GET, POST]
+
+coordinadores_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FCOMIcomBundle:Coordinadores:delete" }
+    methods:  [GET, POST]

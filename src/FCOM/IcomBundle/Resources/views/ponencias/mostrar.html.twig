@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Ponencia</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ponencia.id }}</td>
+            </tr>
+            <tr>
+                <th>Titulo</th>
+                <td>{{ ponencia.titulo }}</td>
+            </tr>
+            <tr>
+                <th>Resumen</th>
+                <td>{{ ponencia.resumen }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('ponencias_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('ponencias_editar', { 'id': ponencia.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

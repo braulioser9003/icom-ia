@@ -1,0 +1,115 @@
+{% extends 'plantillas/principal.html.twig' %}
+
+{% block contenido %}
+    {{ parent() }}
+    {{ include('plantillas/formularios.html.twig') }}
+    <div class="container" id="content-contain">
+        <div class="page-content">
+            <div class="page-header" style="margin-top: 2%;">
+                <h1>
+                    Crear Noticia
+                </h1>
+            </div><!-- /.page-header -->
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- PAGE CONTENT BEGINS -->
+
+                    {{ form_start(form, {'attr' : {'enctype' : 'multipart/form-data','novalidate': 'novalidate', 'role' : 'form', 'class' : 'form-horizontal'}}) }}
+
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+
+                            <div style="margin-top: 5px;">
+                                <div class="col-xs-5">
+                                    <label for="form-field-9"> {{ form_label(form.titulo) }} </label>
+
+                                    <div >
+                                        {{ form_widget(form.titulo, {'novalidate': 'novalidate','attr' : {'class' : 'col-xs-10', 'data-rel' : 'tooltip', 'data-placement' : 'bottom', 'id' : 'form-field-6'}}) }}
+                                        <span class="help-button" data-rel="popover" data-trigger="hover" data-placement="left" data-content="Título de la Noticia." title="" data-original-title="Ayuda">?</span>
+                                        <span class="text-danger" style="float: left;">{{ form_errors(form.titulo) }}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br>
+                            <br>
+                            <div style="margin-top: 5%;" class="wy">
+                                <div class="col-sm-9">
+                                    <label for="form-field-9">{{ form_label(form.resumen) }}</label>
+                                    <div >
+                                        {{ form_widget(form.resumen, {'attr' : {'class' : 'col-xs-10', 'data-rel' : 'tooltip', 'data-placement' : 'bottom', 'id' : 'form-field-6'}}) }}
+                                        <span class="help-button" data-rel="popover" data-trigger="hover" data-placement="left" data-content="Breve resumen sobre la noticia." title="" data-original-title="Ayuda">?</span>
+                                        <span class="text-danger" style="float: left;">{{ form_errors(form.resumen) }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div style="margin: 10% 0 5% 0;">
+                                <div class="col-sm-12" style="margin:0 0 5% 0;">
+                                    <label for="form-field-9">{{ form_label(form.contenido) }}</label>
+
+                                    {{ form_widget(form.contenido, {'attr' : {'novalidate': 'novalidate','class' : 'ckeditor', 'id' : 'form-field-1'}}) }}
+                                    <span class="text-danger">{{ form_errors(form.contenido) }}</span>
+
+                                </div>
+
+                            </div>
+                            <br>
+                            <br>
+                            <div style="margin: 15px 100px 0 0;">
+
+                                <div class="col-sm-4" style="margin: 0 50% 0 0;">
+                                    <label for="form-field-9" class="control-label ">{{ form_label(form.etiqueta) }}</label>
+                                    <div >
+                                        {{ form_widget(form.etiqueta, {'attr' : {'novalidate': 'novalidate','class' : 'col-xs-7', 'data-rel' : 'tooltip', 'data-placement' : 'bottom', 'id' : 'form-field-6'}}) }}
+                                        <span class="help-button" data-rel="popover" data-trigger="hover" data-placement="left" data-content="Seleccionar las etiquetas para describir su contenido." title="" data-original-title="Ayuda">?</span>
+                                        <span class="text-danger" style="float: left;">{{ form_errors(form.etiqueta) }}</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div style="margin-top: 10%;">
+                                <div class="col-sm-4" style="margin: 3% 50% 0 0;">
+                                        <label for="form-field-9">Imagen</label>
+                                        <input type="file" name="file" id="id-input-file-1" class="form-control" placeholder="Subir"
+                                               height="50px" />
+                                        <span class="help-block">Suba una imagen para acompañar esta noticia..</span>
+                                        <span class="help-block">Tipos de archivo permitidos: <strong>png</strong> <strong>gif</strong> <strong>jpg</strong> <strong>jpeg</strong> ...</span>
+                                </div>
+                            </div>
+                            <div style="margin-top: 10%;">
+                                <div class="col-sm-4" style="margin-top: 3%;">
+                                    <label for="form-field-9">Publicado</label>
+                                    {{ form_widget(form.publicado, {'attr' : {'novalidate': 'novalidate','class' : 'ace ace-switch ace-switch-6', 'id' : 'form-field-select-1', 'checked' : 'checked'}}) }}
+                                    <span class="lbl"></span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="col-md-9 clearfix form-actions">
+                                    {{ form_widget(form.save, {'label' : 'Crear Noticia', 'attr' : {'class' : 'btn btn-info' }}) }}
+
+                                    <button class="btn" type="reset">
+                                        <i class="ace-icon fa fa-undo bigger-110"></i>
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {{ form_end(form) }}
+
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div>
+
+
+{% endblock %}

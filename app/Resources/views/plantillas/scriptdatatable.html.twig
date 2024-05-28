@@ -1,0 +1,68 @@
+{% block stylesheets %}
+    <!--**************************************************** -->
+    <!-- *********Estilo para la pagina de Salas ***********-->
+    <!-- ***************************************************-->
+    
+    <link href="{{ asset('bundles/fcomicom/assets/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/fcomicom/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/uniform/css/uniform.default.css') }}" rel="stylesheet" type="text/css">
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/select2/select2.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
+    <!-- END PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="{{  asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datepicker/css/datepicker3.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{  asset('bundles/fcomicom/assets/js/bootstrap-timepicker.min.js') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{  asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{  asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{  asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"/>
+    <!-- BEGIN THEME STYLES -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/fcomicom/assets/css/bootstrap-datetimepicker.min.css') }}">
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/global/css/components-rounded.css') }}" id="style_components" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/admin/layout/css/layout.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/fcomicom/css/uniform.default.css') }}" rel="stylesheet" type="text/css" id="style_color">
+    <link href="{{ asset('bundles/fcomicom/metronic/assets/admin/layout/css/custom.css') }}" rel="stylesheet" type="text/css">
+
+
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico"/>
+{% endblock%}
+{% block javascripts %}
+<!--**************************************************** -->
+<!-- *********Estilo para la pagina de Salas ***********-->
+<!-- ***************************************************-->
+    <!--{ asset('') }}-->
+    <!-- BEGIN CORE PLUGINS -->
+<script src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/fcomicom/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/jquery.blockui.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/fcomicom/js/bootstrap-hover-dropdown.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/assets/js/bootstrap-timepicker.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/clockface/js/clockface.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/assets/js/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/assets/js/bootstrap-datetimepicker.min.js') }}"></script>
+<!-- BEGIN PAGE LEVEL PLUGINS -->]
+
+<script src="{{ asset('bundles/fcomicom/metronic/assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/fcomicom/metronic/assets/admin/layout3/scripts/layout.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ asset('bundles/fcomicom/metronic/assets/admin/layout3/scripts/demo.js') }}"></script>
+
+<script src="{{ asset('bundles/fcomicom/metronic/assets/admin/pages/scripts/components-pickers.js') }}"></script>
+    <script type="text/javascript">
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        ComponentsPickers.init();
+    });
+</script>
+{% endblock%}
